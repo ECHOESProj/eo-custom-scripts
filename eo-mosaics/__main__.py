@@ -17,10 +17,29 @@ config_sh.instance_id = config_s3.sh_instance_id
 config_sh.sh_client_id = config_s3.sh_client_id
 config_sh.sh_client_secret = config_s3.sh_client_secret
 
-script_dir = {'sentinel2_l1c': 'sentinel-2'}  # Update this with the other instrument names & corresponding directories
+script_dir = {'SENTINEL2_L1C': 'sentinel-2',
+              'SENTINEL2_L2A': 'sentinel-2',
+              'SENTINEL1': 'sentinel-1',
+              'SENTINEL1_IW': 'sentinel-1',
+              'SENTINEL1_IW_ASC': 'sentinel-1',
+              'SENTINEL1_IW_DES': 'sentinel-1',
+              'SENTINEL1_EW_ASC': 'sentinel-1',
+              'SENTINEL1_EW_DES': 'sentinel-1',
+              'SENTINEL1_EW_SH': 'sentinel-1',
+              'SENTINEL1_EW_SH_ASC': 'sentinel-1',
+              'SENTINEL1_EW_SH_DES': 'sentinel-1',
+              'MODIS': 'modis',
+              'LANDSAT45_L1': 'Landsat-57',  # Not sure about this
+              'LANDSAT45_L2': 'Landsat-57',  # Not sure about this
+              'LANDSAT8': 'landsat-8',
+              'LANDSAT8_L1': 'landsat-8',
+              'LANDSAT8_L2': 'landsat-8',
+              'SENTINEL5P': 'sentinel-5p',
+              'SENTINEL3_SLSTR': 'slstr'}
 
 
 def processor_script(instrument, name):
+    instrument = instrument.upper()
     with open(join(pathlib.Path(__file__).parent, 'scripts', script_dir[instrument], name, 'script.js'),
               "r") as f:
         return f.read()
@@ -70,6 +89,14 @@ def process(instrument: str, processing_module: str, area_wkt: str, start: str, 
 @click.argument('start')
 @click.argument('end')
 def cli(instrument: str, processing_module: str, area_wkt: str, start: str, end: str) -> None:
+    """
+    :param instrument: The name of the instrument (e.g. S1_SAR_GRD)
+    :param processing_module: The processor to use.
+    :param area_wkt: The WKT string, which is the polygon of the ROI
+    :param start: The start date of the search in the format YYYY-MM-DD
+    :param end: The stop date of the search in the format YYYY-MM-DD
+    :return:
+    """
     process(instrument, processing_module, area_wkt, start, end)
 
 
