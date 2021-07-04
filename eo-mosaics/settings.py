@@ -97,7 +97,6 @@ def configuration():
         raise IOError('Could not determine the platform')
 
     config = Configuration(**{**platform_settings, **data_source_platform})
-    print(f'{config=}')
     return config
 
 
