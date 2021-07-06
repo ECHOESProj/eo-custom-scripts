@@ -20,5 +20,4 @@ Deploy:
 
     #remote:
     unzip deploy.zip -d eo-mosaics
-    cd eo-mosaics
-    docker build . -t eom --network host
+    docker build eo-mosaics -t eom --network host
