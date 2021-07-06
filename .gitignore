@@ -8,3 +8,4 @@ eo-mosaics/config/*
 !eo-mosaics/config/
 !eo-mosaics/config/example.yaml
 !.gitignore
+deploy.zip
