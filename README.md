@@ -72,7 +72,7 @@ and under the "scripts" directory in the repository (but without and documentati
 The processing module is the name of the directory that contains script.js. For example, under sentinel-2 
 there is false_color_composite, barren_soil etc, each of which contain script.js. 
 
-The instrument will modify the path to the scripts directory, so for example with "SENTINEL1" instrument any of the
+The instrument will map to the corresponding path in the scripts directory, so for example with "SENTINEL1" instrument any of the
 scripts in the "sentinel-1" directory can be used.   
 
 
