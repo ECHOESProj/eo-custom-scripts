@@ -80,6 +80,7 @@ def process(instrument: str, processing_module: str, area_wkt: str, start: str, 
         request_func = partial(get_request, instrument, processing_module, start, end, bbox, size)
         store = ReadWriteData(config_s3, 'product_name')
         ToS3(store, processing_module, 'monthly', request_func)
+        break
 
 
 @click.command()
@@ -88,6 +89,7 @@ def process(instrument: str, processing_module: str, area_wkt: str, start: str, 
 @click.argument('area_wkt')
 @click.argument('start')
 @click.argument('end')
+# @click.option('--', default=None)
 def cli(instrument: str, processing_module: str, area_wkt: str, start: str, end: str) -> None:
     """
     :param instrument: The name of the instrument (e.g. S1_SAR_GRD)
