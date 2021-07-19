@@ -2,7 +2,7 @@
 
 ## Evaluate and visualize  
  - [EO Browser](https://sentinelshare.page.link/i7t2)
- - [Euro Data Cube](https://eurodatacube.com/marketplace/notebooks/contributions/EDC_SentinelHub_DataFusion_NDVI.ipynb){:target="_blank"}   
+ - [Euro Data Cube](https://eurodatacube.com/marketplace/notebooks/contributions/EDC_SentinelHub_DataFusion_NDVI.ipynb) 
   
 ## General description of the script  
   
