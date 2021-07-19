@@ -8,8 +8,4 @@ The [False color](https://en.wikipedia.org/wiki/False_color) infrared composite 
 
 False color composite of Rome. 
 
-![False color composite of Rome](fig/fig1.jpg)
-
-## References
-- [1] Wikipedia, [False color](https://en.wikipedia.org/wiki/False_color). Accessed October 10th 2017.
-- [2] Wikipedia, [sRGB](https://en.wikipedia.org/wiki/SRGB). Accessed October 10th 2017.
+![False color composite of Rome](fig/false_color.jpg)
