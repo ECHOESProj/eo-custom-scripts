@@ -5,7 +5,7 @@ from os import makedirs, remove
 from os.path import dirname, join, basename
 from datetime import datetime
 from glob import glob
-
+from osgeo import gdal
 
 class ToS3:
 
@@ -46,4 +46,11 @@ class ToS3:
             request = self.request(tempdir)
             self.get_data(request)
             for local_fname in glob(join(tempdir, '*', '*')):
+                # run the geotiff through gdal translate before upload
+                _, file_extension = os.path.splitext(local_fname)
+                if file_extension.lower() == '.tiff':
+                    gdal.Translate(f'{local_fname}.gdal', local_fname, format='GTiff')
+                    os.remove(local_fname)
+                    os.rename(f'{local_fname}.gdal', local_fname)
+
                 self.store.upload_file(local_fname, self.object_name(request, local_fname))

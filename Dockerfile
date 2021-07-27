@@ -1,4 +1,7 @@
-FROM python:3.8
+FROM osgeo/gdal:ubuntu-small-latest
+
+RUN apt-get update
+RUN apt-get -y install python3-pip
 
 COPY ./requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt

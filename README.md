@@ -17,7 +17,7 @@ running when running locally. See here for instruction on installing Minio: http
 
 
 ### Install
-
+Gdal 3.2.1+ needs to be installed on the system for Python gdal
 Pip install the requirements from requirements.txt.
 
 ### Credentials
