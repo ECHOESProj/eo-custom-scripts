@@ -9,6 +9,20 @@ from settings import configuration
 from shapely import wkt
 from storage.store import ToS3
 from storage.store_objects import ReadWriteData
+from datetime import date, datetime, timedelta
+
+from time import perf_counter
+import logging
+from logging.handlers import TimedRotatingFileHandler
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        #file_handler,
+        logging.StreamHandler()
+    ]
+)
 
 config_s3 = configuration()
 config_sh = SHConfig()
@@ -71,6 +85,8 @@ def process(instrument: str, processing_module: str, area_wkt: str, start: str, 
     bbox = BBox(bbox=area.bounds, crs=CRS.WGS84)
     size = bbox_to_dimensions(bbox, resolution=resolution)
 
+    # interval_range was excluding the first month if it was 01-01. Minus 1 day from the start date to include first month
+    start = datetime.strptime(start, '%Y-%m-%d').date() - timedelta(days=1)
     intervals = pd.interval_range(start=pd.Timestamp(start), end=pd.Timestamp(end), freq='M')
     intervals = [(pd.to_datetime(i.left + pd.DateOffset(days=1)).date(), pd.to_datetime(i.right).date())
                  for i in intervals]
@@ -80,7 +96,6 @@ def process(instrument: str, processing_module: str, area_wkt: str, start: str, 
         request_func = partial(get_request, instrument, processing_module, start, end, bbox, size)
         store = ReadWriteData(config_s3, 'product_name')
         ToS3(store, processing_module, 'monthly', request_func)
-        break
 
 
 @click.command()
@@ -99,7 +114,11 @@ def cli(instrument: str, processing_module: str, area_wkt: str, start: str, end:
     :param end: The stop date of the search in the format YYYY-MM-DD
     :return:
     """
+    t1_start = perf_counter()
+    logging.info('Starting') 
     process(instrument, processing_module, area_wkt, start, end)
+    t1_stop = perf_counter()
+    logging.info(f'Finished, {t1_stop-t1_start}s')
 
 
 if __name__ == '__main__':
