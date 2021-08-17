@@ -43,8 +43,8 @@ script_dir = {'SENTINEL2_L1C': 'sentinel-2',
               'SENTINEL1_EW_SH_ASC': 'sentinel-1',
               'SENTINEL1_EW_SH_DES': 'sentinel-1',
               'MODIS': 'modis',
-              'LANDSAT45_L1': 'Landsat-57',  # Not sure about this
-              'LANDSAT45_L2': 'Landsat-57',  # Not sure about this
+              'LANDSAT45_L1': 'landsat-4-5-tm',  # Not sure about this
+              'LANDSAT45_L2': 'landsat-4-5-tm',  # Not sure about this
               'LANDSAT8': 'landsat-8',
               'LANDSAT8_L1': 'landsat-8',
               'LANDSAT8_L2': 'landsat-8',
