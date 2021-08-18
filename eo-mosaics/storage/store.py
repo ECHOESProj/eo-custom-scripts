@@ -49,7 +49,12 @@ class ToS3:
                 # run the geotiff through gdal translate before upload
                 _, file_extension = os.path.splitext(local_fname)
                 if file_extension.lower() == '.tiff':
-                    gdal.Translate(f'{local_fname}.gdal', local_fname, format='GTiff', creationOptions=['COMPRESS=JPEG', 'TILED=YES', 'PHOTOMETRIC=YCBCR'])
+                    dataset = gdal.Open(local_fname)
+                    creationOptions = ['COMPRESS=JPEG', 'TILED=YES']
+                    if dataset.RasterCount == 3:
+                        creationOptions.append('PHOTOMETRIC=YCBCR')
+
+                    gdal.Translate(f'{local_fname}.gdal', local_fname, format='GTiff', creationOptions = creationOptions)
                     os.remove(local_fname)
                     os.rename(f'{local_fname}.gdal', local_fname)
 
