@@ -50,7 +50,8 @@ class ToS3:
                 _, file_extension = os.path.splitext(local_fname)
                 if file_extension.lower() == '.tiff':
                     dataset = gdal.Open(local_fname)
-                    creationOptions = ['COMPRESS=JPEG', 'TILED=YES']
+                    #creationOptions = ['COMPRESS=JPEG', 'TILED=YES']
+                    creationOptions = ['COMPRESS=JPEG']
                     if dataset.RasterCount == 3:
                         creationOptions.append('PHOTOMETRIC=YCBCR')
 
