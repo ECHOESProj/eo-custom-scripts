@@ -50,12 +50,16 @@ class ToS3:
                 _, file_extension = os.path.splitext(local_fname)
                 if file_extension.lower() == '.tiff':
                     dataset = gdal.Open(local_fname)
-                    creationOptions = ['COMPRESS=JPEG', 'JPEG_QUALITY=80']
+                    jpeg_quality_option = 'JPEG_QUALITY=85'
+                    creationOptions = ['COMPRESS=JPEG']
                     bandList = None
                     if dataset.RasterCount >= 3:
                         bandList = [1,2,3]
                         creationOptions.append('PHOTOMETRIC=YCBCR')
+                        # when YCBCR is enabled, filesize will be much smaller, bump up the quality
+                        jpeg_quality_option = 'JPEG_QUALITY=95'
                     
+                    creationOptions.append(jpeg_quality_option)
                     gdal.Translate(f'{local_fname}.gdal', local_fname, format='GTiff', creationOptions = creationOptions, bandList = bandList)
                     os.remove(local_fname)
                     os.rename(f'{local_fname}.gdal', local_fname)
