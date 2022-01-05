@@ -33,7 +33,7 @@ config (yaml) file.
 An example usage is as follows:
 
     python eo-mosaics sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
-
+    
 The GeoTIFFs should be in Minio after this has executed.
 
 The command line arguments are as follows: 
@@ -113,3 +113,8 @@ Example:
 
 * Use Pydantic (https://pydantic-docs.helpmanual.io/usage/settings/) to read config file, with the option of using environment
 variables instead those in the config file.
+
+
+## RSync 
+
+rsync -a  --include='*/'  --include="*.html" --include="*.js" --include="*.json" --include="*.lnk" --include="*.md" --include="*.txt" --include="*.yml" --include="*.idx" --exclude="*" custom-scripts/ eo-mosaics/eo-mosaics/scripts/
