@@ -1,5 +1,12 @@
 # Global Land Cover discrete classification map  visualisation script
 
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
+
 ## General description of the script  
 This script visualises Global Land Cover discrete classification map with classes defined using the UN-FAO Land Cover Classification System (LCCS) and with color scheme defined in the [Product User Manual](https://land.copernicus.eu/global/sites/cgls.vito.be/files/products/CGLOPS1_PUM_LC100m-V3_I3.3.pdf).  
 
@@ -144,3 +151,9 @@ Table 1: Color legend for the 23 discrete classes of land cover classification m
 *2019 nrt discrete land cover classification map for Republic of Ecuador's Galápagos Island visualised in EO browser*   
 
 ![Discrete classification map for  Republic of Ecuador's Galápagos Island](fig/Galapagos_Islands.png)
+
+## Resources
+
+- [Data source](https://lcviewer.vito.be/download)
+
+- [Entry in public collections](https://github.com/sentinel-hub/public-collections/tree/main/collections/global-land-cover)

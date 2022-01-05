@@ -1,8 +1,15 @@
 # Mapping Soybean and Maize NDVI with Sentinel-1 and Sentinel-2
-
+  
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.  
+<div id='script_view' style="display:none">  
+{% highlight javascript %}  
+{% include_relative script.js %}  
+{% endhighlight %}  
+</div>  
+  
 ## Evaluate and visualize  
  - [EO Browser](https://sentinelshare.page.link/i7t2)
- - [Euro Data Cube](https://eurodatacube.com/marketplace/notebooks/contributions/EDC_SentinelHub_DataFusion_NDVI.ipynb) 
+ - [Euro Data Cube](https://eurodatacube.com/marketplace/notebooks/contributions/EDC_SentinelHub_DataFusion_NDVI.ipynb){:target="_blank"}   
   
 ## General description of the script  
   
@@ -22,13 +29,11 @@ The method developed by Filgueiras et al. (2019) is based on regression algorith
 ## Description of representative images  
   
 1. Sentinel-2 L2A [True Color Composite](https://apps.sentinel-hub.com/eo-browser/?lat=37.7235&lng=-100.8442&zoom=11&time=2019-04-26&preset=1_TRUE_COLOR&datasource=Sentinel-2%20L2A) (enhanced), West Kansas.  
-![NDBI](fig/ndvi_s1_s2_1.jpg)
- 
+![NDBI](fig/im1.jpg)   
 2. Sentinel-2 L2A [NDVI](https://custom-scripts.sentinel-hub.com/sentinel-2/ndvi/), West Kansas. 
-![NDBI_map](fig/ndvi_s1_s2_2.jpg)
-
+![NDBI_map](fig/im2.jpg)  
 3. Sentinel-2 L2A / Sentinel-1 GRD NDVI, West Kansas. 
-![RGB](fig/ndvi_s1_s2_3.jpg)  
+![RGB](fig/im3.jpg)  
 
 ## References
 
@@ -40,4 +45,7 @@ The method developed by Filgueiras et al. (2019) is based on regression algorith
 
 [4] _Inoue et al., 2014, Capability of C-band backscattering coefficients from high-resolution satellite SAR sensors to assess biophysical variables in paddy rice, DOI: [10.1016/j.rse.2013.09.001](https://www.sciencedirect.com/science/article/abs/pii/S0034425713003039)._
 
-[5] _Filgueiras et al., 2019, Crop NDVI Monitoring Based on Sentinel 1, DOI: [10.3390/rs11121441](https://www.mdpi.com/2072-4292/11/12/1441).
+[5] _Filgueiras et al., 2019, Crop NDVI Monitoring Based on Sentinel 1, DOI: [10.3390/rs11121441](https://www.mdpi.com/2072-4292/11/12/1441)._
+  
+## Contributors:  
+Maxim Lamare

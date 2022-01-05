@@ -1,4 +1,10 @@
 # Mapzen and Copernicus DEM difference Visualization
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
 
 ## Description
 
@@ -13,3 +19,7 @@ This script returns a blue-white-red visualization of the difference (Mapzen DEM
 A darker blue colour indicates larger positive differences of Mapzen DEM's values over Copernicus DEM's values, whereas a darker red colour indicates larger negative differences. All values greater/less than 300/-300 are mapped to 300/-300 for better visualization.
 
 ![dem difference legend](fig/fig2.png)
+ 
+## Author of the script
+ 
+Chung-Xiang Hong

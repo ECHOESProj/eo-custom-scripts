@@ -6,19 +6,19 @@ SentinelHub custom scripts have limited support for custom colormaps: `colorBlen
 # Example Visualizations
 [Masked Lena River Delta NDWI (white-blue-black-green `LinearColormap`)](https://tinyurl.com/y6b5hevs)
 
-![lena](fig/lena_ndwi.jpg)
+![lena](images/lena_ndwi.jpg)
 
 [Masked NDVI of Sequim, Washington, USA (white-green `LinearColormap`](https://tinyurl.com/yyt937cj)
 
-![sequim](fig/sequim_ndvi.jpg)
+![sequim](images/sequim_ndvi.jpg)
 
 [Isoluminant NDVI of Troy, New York, USA (blue-gray-green `IsoluminantColormap`](https://tinyurl.com/y4uhg7t9). Visualized with relief derived from elevation data at the [New York State GIS Clearinghouse](https://gis.ny.gov/).
 
-![ndvi_qgis](fig/qgis_isoluminant.JPG)
+![ndvi_qgis](images/qgis_isoluminant.JPG)
 
 [Brightness temperature of Hurricane Matthew in October 2016 (blue-white-red `DivergentColormap`)](https://tinyurl.com/y4ybe7te). The classes are sensor-agnostic, so we can use any satellite available for scripting.
 
-![hurricane_matthew](fig/hurricane_matthew_temperature.jpg)
+![hurricane_matthew](images/hurricane_matthew_temperature.jpg)
 
 # How the Script Works
 This script supports 4 flavors of color map in addition to functions that interconvert between the CIELAB, XYZ, and RGB color spaces in pure JavaScript. In each case, the user simply provides two arrays, one for anchor colors and one for data values, and the class will generate the correct color for data values calculated by the script. For example, to generate a brown-green color map for NDVI values in the range `[0, 1]`, simply use:

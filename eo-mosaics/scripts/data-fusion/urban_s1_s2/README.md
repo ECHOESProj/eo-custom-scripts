@@ -1,5 +1,15 @@
 # Urban detection with Sentinel-1 and Sentinel-2
+  
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.  
+<div id='script_view' style="display:none">  
+{% highlight javascript %}  
+{% include_relative script.js %}  
+{% endhighlight %}  
+</div>  
 
+# Author: 
+Monja B. Šebela
+  
 ## Evaluate and visualize  
  - [EO Browser](https://sentinelshare.page.link/qBRg)
   
@@ -10,7 +20,7 @@ This script is based on the [Urban areas composite for Sentinel-1](https://custo
 ## Description of representative images  
   
 **Tabriz, Iran**
-![Tabriz](fig/urban_s1_s2_1.jpg) 
+![Tabriz](fig/fig1.jpg) 
 
 **Venice, Italy**
-![Venice](fig/urban_s1_s2_2.jpg)  
+![Venice](fig/fig2.jpg)  

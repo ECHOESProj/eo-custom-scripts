@@ -1,5 +1,12 @@
 # Global Surface Water Transitions visualisation script
 
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
+
 ## General description of the script
 
 This script visualizes the Transitions layer from the Global Surface Water dataset according to the official symbology (Table 1). The Transitions layer is derived from a seasonality comparison between the first and last year of the entire time period and visualises changes in the three surface water classes of not water, seasonal, and permanent water.
@@ -97,3 +104,11 @@ Table 1: Transitions Symbology
 *EO Browser visualisation of the Transitions layer showing the Paraná River near santa Fe, Argentina.*
 
 ![Transitions Paraná River near Santa Fe in Argentina](fig/image_transitions_parana_river.png)
+
+## Resources
+
+- [Data Source](https://global-surface-water.appspot.com/download)
+
+- [Entry in public collections](https://collections.sentinel-hub.com/global-surface-water/)
+
+- [Entry in public collections repository](https://github.com/sentinel-hub/public-collections/tree/main/collections/global-surface-water)

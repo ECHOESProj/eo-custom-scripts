@@ -1,7 +1,14 @@
 # Sentinel-2 with cloudy parts replaced by Sentinel-1
 
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+{% include_relative script.js %}
+{% endhighlight %}
+</div>
+
 ## Evaluate and visualize
- - [EO Browser](https://sentinelshare.page.link/KoE7)
+ - [EO Browser](https://sentinelshare.page.link/KkvZ)
 
 ## General description
 The script uses cloud masks to identify cloudy sentinel-2 areas and replace the data with terrain visualisation based on Sentinel-1 data. 
@@ -10,4 +17,11 @@ The script uses cloud masks to identify cloudy sentinel-2 areas and replace the 
 
 Sevastopol with cloudy areas in Sentinel-1, and non-cloudy areas in Sentinel-2. 
 
-![RGB](fig/s2l1c_s1grd_cloud_replacement.png)
+![RGB](fig/fig1.png)
+
+## Contributors:
+ - Pierre Markuse, (Twitter: @pierre_markuse)
+
+## License
+
+ - [CC BY 4.0 International](https://creativecommons.org/licenses/by/4.0/){:target="_blank"}

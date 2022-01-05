@@ -1,0 +1,57 @@
+# Soil Moisture Estimation Script
+
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
+
+## Evaluate and visualize   
+ - [Sentinel Playground Temporal](https://apps.sentinel-hub.com/sentinel-playground-temporal/?source=S1-AWS-IW-VVVH&lat=49.58263077421254&lng=-97.78971236664802&zoom=11&preset=CUSTOM&layers=VV,VV,VV&maxcc=20&gain=1.0&gamma=1.0&time=2017-01-01%7C2019-10-31&atmFilter=&showDates=false&evalscript=Ly9WRVJTSU9OPTMgKGF1dG8tY29udmVydGVkIGZyb20gMSkKLyoKClN1cmZhY2UgU29pbCBNb2lzdHVyZSAoU1NNKSByZXRyaWV2YWwgdXNpbmcgY2hhbmdlIGRldGVjdGlvbiBhcHByb2FjaC4KCkF1dGhvciBEZXRhaWxzOiAKTmFyYXlhbmEgUmFvIEIuCjIwNi1NUlNMYWIsIENTUkUsCklJVCBCb21iYXksIEluZGlhLgoKQSBkZXRhaWxlZCBleHBsYW5hdGlvbiBvZiB0aGUgaW1wbGVtZW50ZWQgYWxnb3JpdGhtIGNhbiBiZSBmb3VuZCBpbiB0aGUgZm9sbG93aW5nIGFydGljbGVzLgoKV2FnbmVyLCBXLiwgTGVtb2luZSwgRy4sIEJvcmdlYXVkLCBNLiBhbmQgUm90dCwgSC4sIDE5OTkuIApBIHN0dWR5IG9mIHZlZ2V0YXRpb24gY292ZXIgZWZmZWN0cyBvbiBFUlMgc2NhdHRlcm9tZXRlciBkYXRhLiAKSUVFRSBUcmFuc2FjdGlvbnMgb24gR2Vvc2NpZW5jZSBhbmQgUmVtb3RlIFNlbnNpbmcsIDM3KDIpLCBwcC45MzgtOTQ4LgoKQi4gQmF1ZXItTWFyc2NoYWxsaW5nZXIgZXQgYWwuLCAKIlRvd2FyZCBHbG9iYWwgU29pbCBNb2lzdHVyZSBNb25pdG9yaW5nIFdpdGggU2VudGluZWwtMTogSGFybmVzc2luZyBBc3NldHMgYW5kIE92ZXJjb21pbmcgT2JzdGFjbGVzLCIgCmluIElFRUUgVHJhbnNhY3Rpb25zIG9uIEdlb3NjaWVuY2UgYW5kIFJlbW90ZSBTZW5zaW5nLCB2b2wuIDU3LCBuby4gMSwgcHAuIDUyMC01MzksIEphbi4gMjAxOS4KCiovCgpmdW5jdGlvbiBzZXR1cCgpIHsKICByZXR1cm4gewogICAgaW5wdXQ6IFt7CiAgICAgIGJhbmRzOiBbCiAgICAgICAgICAgICAgICAgICJWViIsCiAgICAgICAgICAiVkgiCiAgICAgIF0KICAgIH1dLAogICAgb3V0cHV0OiB7IGJhbmRzOiAzIH0sCiAgICBtb3NhaWNraW5nOiAiT1JCSVQiCiAgfQp9CgpmdW5jdGlvbiBmaWx0ZXJTY2VuZXMgKHNjZW5lcywgaW5wdXRNZXRhZGF0YSkgCiAgewogICAgcmV0dXJuIHNjZW5lcy5maWx0ZXIoZnVuY3Rpb24gKHNjZW5lKSB7CiAgICAvLyBDb25zaWRlcmluZyAzNiBtb250aHMgZGF0YSB0byBhdm9pZCBzZWFzb25hbCB2YXJpYXRpb25zIGluIG1hc2tpbmcKICAgIHJldHVybiBzY2VuZS5kYXRlLmdldFRpbWUoKT49KGlucHV0TWV0YWRhdGEudG8uZ2V0VGltZSgpLTM2KjMwKjI0KjM2MDAqMTAwMCkgOyAgLy8gRGF0YSBmcm9tIDM2IG1vbnRocyB0byBjdXJyZW50IGRhdGUKICAgIH0pOwogIH0KCmZ1bmN0aW9uIGV2YWx1YXRlUGl4ZWwoc2FtcGxlcywgc2NlbmVzKSAKICB7ICAKICAgIHZhciBjb3VudCA9IDA7CiAgICB2YXIgTXYgPSAwOwogICAgdmFyIG1heCA9IDA7CiAgICB2YXIgbWluID0yLjA7CiAgICB2YXIgc3VtX1ZWID0gMDsKCiAgICBmb3IgKHZhciBpPTA7aTxzYW1wbGVzLmxlbmd0aC0xO2krKykgCiAgICAgIHsKICAgICAgICAgIG1heCA9IHNhbXBsZXNbaV0uVlYgPiBtYXggPyBzYW1wbGVzW2ldLlZWOm1heDsgLy8gQ2FsY3VsYXRpbmcgYWxsIHRpbWUgbWF4aW11bS0tV2V0IGluZGV4IAogICAgICAgICAgbWluID0gc2FtcGxlc1tpXS5WViA8IG1pbiA%2FIHNhbXBsZXNbaV0uVlY6bWluOyAvLyBDYWxjdWxhdGluZyBhbGwgdGltZSBtaW5pbXVtLS1EcnkgaW5kZXggCiAgICAgICAgICBzdW1fVlYgKz0gc2FtcGxlc1tpXS5WVjsgCiAgICAgICAgICBjb3VudCsrOwogICAgICB9CiAgICAvLyBPdmVyYWxsIHJhbmdlIG9mIGludGVuc2l0eSB2YWx1ZXMgQW5vbG9nb3VzIHRvIDAtMTAwJSBzb2lsIG1vaXN0dXJlIAogICAgdmFyIHNlbnNpdGl2aXR5ICA9IG1heC1taW47IAogICAgLy8gSWYgb3ZlcmFsbCBhdmVyZ2UgaXMgbW9yZSB0aGFuIDZkQiBpLmUuLCBIaWdoIGludGVuc2l0eSBhbHdheXMgdXN1YWxseSB1cmJhbiBhcmVhcy4KICAgIC8vIEdlbmVyYXRpbmcgdXJiYW4gYXJlYSBtYXNrIHVzaW5nIC02ZEIgdGhyZXNob2xkCiAgICB1cmJhbl9tYXNrID0gMTAqTWF0aC5sb2cxMChzdW1fVlYvY291bnQpID4gLTYgPyAgMCA6IDE7IAogICAgLy8gSWYgb3ZlcmFsbCBhdmVyZ2UgaXMgbGVzcyB0aGFuIDE3ZEIgaS5lLiwgbG93IGludGVuc2l0eSBhbHdheXMgdXN1YWxseSB3YXRlciBib2RpZXMuCiAgICAvLyBHZW5lcmF0aW5nIHBlcm1hbmVudCB3YXRlciBib2R5IG1hc2sgdXNpbmcgLTE3ZEIgdGhyZXNob2xkCiAgICB3YXRlcl9tYXNrID0gMTAqTWF0aC5sb2cxMChzdW1fVlYvY291bnQpIDwgLTE3ID8gIDAgOiAxOyAKICAgIC8vIEFzc3VtaW5nIGNoYW5nZSBpbiBiY2tzY2F0dGVyIGludGVuc2l0eSBvbmx5IGJlY2F1c2Ugb2YgY2hhbmdlIGluIHNvaWwgbW9pc3R1cmUuCiAgICBNdiA9ICgoc2FtcGxlc1swXS5WVikgLSBtaW4pLyhzZW5zaXRpdml0eSk7CiAgICBNdiA9IE12KndhdGVyX21hc2sqdXJiYW5fbWFzazsvLyBBcHBseWluZyB1cmJhbiBhbmQgcGVybWFuZW50IHdhdGVyIGJvZHkgbWFzawoKICAgIC8qCgogICAgQXNzaWduaW5nIGNvbG9ybWFwIGZvciBlbmhhbmNlZCB2aXN1YWxpc2F0aW9uCgogICAgKi8KICAgIHZhciB2ID0gTXY7CiAgICB2YXIgdm1pbiA9IDA7CiAgICB2YXIgdm1heCA9IDAuNjsKICAgIHZhciBkaWZmdiA9IHZtYXggLSB2bWluOwogICAgCiAgICB2YXIgciA9IDAuMDsKICAgIHZhciBnID0gMC4wOwogICAgdmFyIGIgPSAwLjA7CgogICAgaWYgKHYgPCB2bWluKXsKICAgICAgdiA9IHZtaW47CiAgICB9CiAgICBpZiAodiA%2BIHZtYXgpewogICAgICB2ID0gdm1heDsKICAgIH0KICAgIC8vVGhyZXNob2xkIHZhbHVlcyBmb3IgY29sb3JNYXAKICAgIHZhciBUMSA9IDAuMTsKICAgIHZhciBUMiA9IDAuMzsKICAgIHZhciBUMyA9IDAuNDsKICAgIHZhciBUNCA9IDAuNTsKICAgIAogICAgdmFyIFRocmVzaF8xID0gKHZtaW4gKyBUMSAqIGRpZmZ2KTsKICAgIHZhciBUaHJlc2hfMiA9ICh2bWluICsgVDIgKiBkaWZmdik7CiAgICB2YXIgVGhyZXNoXzMgPSAodm1pbiArIFQzICogZGlmZnYpOwogICAgdmFyIFRocmVzaF80ID0gKHZtaW4gKyBUNCAqIGRpZmZ2KTsKCiAgICBpZiAodiA8PSAwKSAKICAgIHsgCiAgICAgIHI9MTsKICAgICAgZz0xOwogICAgICBiPTE7CiAgICB9CiAgICBlbHNlIGlmICh2IDwgVGhyZXNoXzEpICAgeyAgciA9IDAuNSArICAodiAtIHZtaW4pIC8gKFRocmVzaF8xIC0gdm1pbikgLyAyOyB9IAogICAgZWxzZSBpZiAodiA8IFRocmVzaF8yKQogICAgewogICAgICAgciA9IDE7CiAgICAgICBnID0gKHYgLSBUaHJlc2hfMSkgLyAoVGhyZXNoXzIgLSBUaHJlc2hfMSk7CiAgICAgICBiID0gMDsKICAgIH0gCiAgICBlbHNlIGlmICh2IDwgVGhyZXNoXzMpIAogICAgewogICAgICAgciA9IDEgKyAoVGhyZXNoXzIgLSB2KSAvIChUaHJlc2hfMyAtIFRocmVzaF8yKTsKICAgICAgIGcgPSAxOwogICAgICAgYiA9ICh2IC0gVGhyZXNoXzIpIC8gKFRocmVzaF8zIC0gVGhyZXNoXzIpOwogICAgfSAKICAgIGVsc2UgaWYgKHYgPCBUaHJlc2hfNCkKICAgICB7CiAgICAgICByID0gMDsKICAgICAgIGcgPSAxICsgKFRocmVzaF8zIC0gdikgLyAoVGhyZXNoXzQgLSBUaHJlc2hfMyk7CiAgICAgICBiID0gMTsKICAgIH0gCiAgICBlbHNlIHsgIGIgPSAxLjAgKyAoVGhyZXNoXzQgLSB2KSAvICh2bWF4IC0gVGhyZXNoXzQpIC8gMjsgIH0KICAgICByZXR1cm4gW3IsIGcsIGJdOwoKICB9Cg%3D%3D&temporal=true){:target="_blank"} 
+
+
+## General description of the script
+
+Script estimates surface soil moisture using change detection algorithm (TU Wien Change Detection model). The algorithm relates the change in backscatter intensity to the change in moisture. This relative change in soil moisture converted to absolute soil moisture by attributing the lowest and highest backscatter values to 0% and 100 % soil moisture respectively for a given pixel. To avoid the effect of outliers in caculating sensitivity of back scatter intensity (max-min), extreme 10% range on both sides was trimmed. This script produces soil moisture ranges from 0 to 60% with colour representation of red being 0 and blue as 60%. White colour represents the masked out area. Permanent water bodies and urban areas are masked out using backscatter intensity thresholds to minimise the number of false pixels. This masking approach is robust since it utilises long time series data.
+
+## Details of the script
+
+The script to estimate surface soil moisture using change detection approach can be applied globally. Since we are considering 3-year data in calculating the sensitivity of backscatter fluctuations,  it is resistant to seasonal fluctuations. It is capable of masking urban and permanent water bodies to reduce false results. The script can produce reasonably good results in flat and moderate slope terrains. But in high slope regions, the incidence angle effect on backscatter intensity affect the results. Rough water surfaces result in false results, e.g. oceans, but not always. Few developing urban areas may also produce false results.
+
+For more details on the script see [supplementary material](supplementary_material.pdf).
+
+## Author of the script
+
+Narayana Rao Bhogapurapu
+
+## Description of representative images
+
+Resulted soil moisture is applied with jet color map for better interpretation. Red color represents low soil moisture (dry soil-0%) whereas blue represents high soil moisture (wet soil-60%). Permanent water bodies and built-up areas are masked out with white color.
+
+Malinong, Australia
+![The script example 1](fig/Malinong_Australia.jpg)
+
+Manitoba, Canada
+![The script example 2](fig/Manitoba_Canada.jpg)
+
+Marrakech, Marocco
+![The script example 3](fig/Marrakech_Morocco.jpg)
+
+Sevilla, Spain
+![The script example 3](fig/Sevilla_Spain.jpg)
+
+Vijayawada, India
+![The script example 3](fig/Vijayawada_India.jpg)
+
+## References
+
+[1] Wagner, W., Lemoine, G., Borgeaud, M. and Rott, H., 1999. A study of vegetation cover effects on ERS scatterometer data. IEEE Transactions on Geoscience and Remote Sensing, 37(2), pp.938-948.
+
+[2] B. Bauer-Marschallinger et al.,  "Toward Global Soil Moisture Monitoring With Sentinel-1: Harnessing Assets and Overcoming Obstacles," in IEEE Transactions on Geoscience and Remote Sensing, vol. 57, no. 1, pp. 520-539, Jan. 2019.
+
+## Credits
+
+- Wagner, W., Lemoine, G., Borgeaud, M. and Rott, H., 1999. A study of vegetation cover effects on ERS scatterometer data. IEEE Transactions on Geoscience and Remote Sensing, 37(2), pp.938-948.
+
+- B. Bauer-Marschallinger et al.,  "Toward Global Soil Moisture Monitoring With Sentinel-1: Harnessing Assets and Overcoming Obstacles," in IEEE Transactions on Geoscience and Remote Sensing, vol. 57, no. 1, pp. 520-539, Jan. 2019. 

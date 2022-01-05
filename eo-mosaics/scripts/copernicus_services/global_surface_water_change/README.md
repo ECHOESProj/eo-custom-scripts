@@ -1,5 +1,12 @@
 # Global Surface Water Occurrence Change Intensity visualisation script
 
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
+
 ## General description of the script
 
 This script visualizes the Occurrence Change Intensity layer from the Global Surface Water dataset according to the official symbology (Table 1). The Occurrence Change Intensity layer visualises changes in water occurrence between two different epochs, the first ranging from **March 1984 to December 1999**, and the other covering the period from **January 2000 to December of the selected review year**.
@@ -61,3 +68,11 @@ Table 1: Occurrence Change Intensity Symbology
 *Occurrence Change Intensity layer visualisation in EO Browser for a section of the Padma River, the main distributary of the Ganges, in Bangladesh.*
 
 ![Occurrence Change Intensity Ganges in Bangladesh](fig/image_change_ganges_river.png)
+
+## Resources
+
+- [Data Source](https://global-surface-water.appspot.com/download)
+
+- [Entry in public collections](https://collections.sentinel-hub.com/global-surface-water/)
+
+- [Entry in public collections repository](https://github.com/sentinel-hub/public-collections/tree/main/collections/global-surface-water)

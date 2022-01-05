@@ -1,5 +1,17 @@
 # Sentinel-3 OLCI true color under Sentinel-5 products
   
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.  
+<div id='script_view' style="display:none">  
+{% highlight javascript %}  
+{% include_relative script.js %}  
+{% endhighlight %}  
+</div>  
+
+## Authors
+
+**Author of the datafusion script:**
+- Monja B. Šebela
+  
 ## Evaluate and visualize  
  - [EO Browser](https://sentinelshare.page.link/rKYk)
   
@@ -11,4 +23,4 @@ The script can be modified to fit any Sentinel-5P product, by just replacing the
 ## Description of representative images  
   
 **Cloud base pressure over OLCI true color**
-![base pressure](fig/olci_under_s5.jpg)
+![base pressure](fig/fig1.jpg) 

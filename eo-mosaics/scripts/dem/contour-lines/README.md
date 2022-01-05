@@ -1,4 +1,10 @@
 # DEM Contour Lines
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
 
 ## Description
 
@@ -89,3 +95,6 @@ It is also possible to return contour lines of any color on top of a true color 
 - Peter Gabrovšek
 - Marko Repše
 - Monja Šebela
+
+
+ 

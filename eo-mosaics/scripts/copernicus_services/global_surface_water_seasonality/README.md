@@ -1,5 +1,12 @@
 # Global Surface Water Seasonality visualisation script
 
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
+
 ## General description of the script
 
 This script visualizes the Seasonality layer from the Global Surface Water dataset according to the official symbology (Table 1). The Seasonality layer provides information on the intra-annual distribution of surface water in the selected review year.
@@ -49,3 +56,11 @@ Table 1: Seasonality Symbology
 *Eo Browser visualisation of surface water Seasonality in the world's largest salt flat Salar de Uyuni in southwest Bolivia.*
 
 ![Seasonality Salar de Uyuni in Bolivia](fig/image_seasonality_salar_de_uyuni.png)
+
+## Resources
+
+- [Data Source](https://global-surface-water.appspot.com/download)
+
+- [Entry in public collections](https://collections.sentinel-hub.com/global-surface-water/)
+
+- [Entry in public collections repository](https://github.com/sentinel-hub/public-collections/tree/main/collections/global-surface-water)

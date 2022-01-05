@@ -1,5 +1,12 @@
 # Mapping forest fire progression with Sentinel-2 and Sentinel-1
-
+  
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.  
+<div id='script_view' style="display:none">  
+{% highlight javascript %}  
+{% include_relative script.js %}  
+{% endhighlight %}  
+</div>  
+  
 ## Evaluate and visualize  
  - [EO Browser](https://sentinelshare.page.link/4ZVo)
 
@@ -25,8 +32,11 @@ By combining data from two different satellite sensors we can avoid data gaps an
 ## Description of representative images  
   
 1. Left: S-2 SWIR composite from 7th September 2019 showing the burn scar with active forest fires. Right: a True Color image of the next acquisition date on 12th September 2019 showing completely overcast conditions.
-![NDBI](fig/s2_s1_forest_fire_progression_1.png)   
+![NDBI](fig/im1.png)   
 2. Left: Sentinel-1 image in VV polarisation mode on 12th September 2019 showing the propagation of the forest fire. Right: the calculated VH backscatter difference layer that was created by subtracting the first from the latter dataset. 
-![NDBI_map](fig/s2_s1_forest_fire_progression_2.png)  
+![NDBI_map](fig/im2.png)  
 3. Fire propagation map depicting previously burned areas from 7 September 2019 in light yellow (analysed with Sentinel-2 data), and newly burned areas in red (analysis based on Sentinel-1 data) on a Sentinel-2 SWIR composite background. 
-![RGB](fig/s2_s1_forest_fire_progression_3.png)
+![RGB](fig/im3.png)  
+
+## Contributors:  
+Max Kampen

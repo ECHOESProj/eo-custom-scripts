@@ -1,5 +1,12 @@
 # CORINE Land Cover visualisation script
 
+<a href="#" id='togglescript'>Show</a> script or [download](script.js){:target="_blank"} it.
+<div id='script_view' style="display:none">
+{% highlight javascript %}
+      {% include_relative script.js %}
+{% endhighlight %}
+</div>
+
 ## General description
 
 This script visualises CORINE Land Cover data according to the official CORINE Land Cover color scheme.
@@ -248,7 +255,13 @@ Table 1: CORINE Land Cover nomenclature and colouring scheme.
 ## Description of representative images
 
 *CORINE Land Cover dataset over the Alps in EO Browser.*
-![CORINE Land Cover dataset over the Alps](fig/corine_land_cover_1.png)
+![CORINE Land Cover dataset over the Alps](fig/fig1.png)
 
 *CORINE Land Cover dataset over Guadeloupe and Martinique, two French DOMs, in EO Browser.*
-![CORINE Land Cover dataset over Guadeloupe and Martinique](fig/corine_land_cover_2.png)
+![CORINE Land Cover dataset over Guadeloupe and Martinique](fig/fig2.png)
+
+## Resources
+
+- [Data source](https://land.copernicus.eu/pan-european/corine-land-cover)
+
+- [Entry in public collections](https://github.com/sentinel-hub/public-collections/tree/main/collections/corine-land-cover)
