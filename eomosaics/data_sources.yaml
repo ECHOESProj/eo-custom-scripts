@@ -1,0 +1,41 @@
+LANDSAT45_L1:
+     directory: landsat-4-5-tm
+LANDSAT45_L2:
+     directory: landsat-4-5-tm
+LANDSAT8:
+     directory: landsat-8
+LANDSAT8_L1:
+     directory: landsat-8
+LANDSAT8_L2:
+     directory: landsat-8
+MODIS:
+     directory: modis
+SENTINEL1:
+     directory: sentinel-1
+SENTINEL1_EW_ASC:
+     directory: sentinel-1
+SENTINEL1_EW_DES:
+     directory: sentinel-1
+SENTINEL1_EW_SH:
+     directory: sentinel-1
+SENTINEL1_EW_SH_ASC:
+     directory: sentinel-1
+SENTINEL1_EW_SH_DES:
+     directory: sentinel-1
+SENTINEL1_IW:
+     directory: sentinel-1
+SENTINEL1_IW_ASC:
+     directory: sentinel-1
+SENTINEL1_IW_DES:
+     directory: sentinel-1
+SENTINEL2_L1C:
+     directory: sentinel-2
+SENTINEL2_L2A:
+     directory: sentinel-2
+SENTINEL3_SLSTR:
+     directory: slstr
+SENTINEL5P:
+     directory: sentinel-5p
+COPERNICUS_SERVICES:
+     directory: copernicus_services
+

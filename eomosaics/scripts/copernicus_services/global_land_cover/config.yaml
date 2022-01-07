@@ -1,0 +1,17 @@
+Info:
+    url: https://collections.eurodatacube.com/vegetation-phenology-and-productivity-parameters-season-2/
+DataCollection:
+    name:
+        Vegetation Phenology and Productivity Parameters Season 2, Yearly
+    api_id:
+        byoc-8c2bc96a-3c2c-482b-9394-031310171b33
+    catalog_id:
+        8c2bc96a-3c2c-482b-9394-031310171b33
+    service_url:
+        https://creodias.sentinel-hub.com
+    is_timeless:
+        False
+Output:
+    mosaicking_order: null
+    frequency: 'yearly'
+    resolution: 10
