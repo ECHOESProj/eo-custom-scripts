@@ -36,7 +36,7 @@ config_sh.instance_id = config_s3.sh_instance_id
 config_sh.sh_client_id = config_s3.sh_client_id
 config_sh.sh_client_secret = config_s3.sh_client_secret
 
-script_dir = read_yaml(join(pathlib.Path(__file__).parent, 'data_sources.yaml'))
+script_dir = read_yaml(join(pathlib.Path(__file__).parent, 'core', 'data_sources.yaml'))
 
 
 def get_script_dir(instrument, directory):
@@ -132,7 +132,6 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
 @click.argument('area_wkt')
 @click.argument('start')
 @click.argument('end')
-# @click.option('--', default=None)
 def cli(instrument: str, processing_module: str, area_wkt: str, start: str, end: str) -> None:
     """
     :param instrument: The name of the instrument (e.g. S1_SAR_GRD)

@@ -1,3 +1,10 @@
+"""
+Integration tests which check that products are generated and put in the object store.
+
+An error is raised if the values in is of the RGB bands of the generated GeoTIFFs are all the same. This is typcially an
+error, but not necessarily for all products
+"""
+
 from eomosaics.__main__ import main
 import pytest
 from eomosaics.core.settings import configuration
@@ -12,11 +19,9 @@ def remove_objects():
     store.remove_temp()
     yield
     store.remove_temp()  # To see the output, comment out this line and look in
-                         # <bucketname>/_tests/
-
+                         # <bucket-name>/_tests/
 
 def process(instrument, processing_module, start, end):
-
     area_wkt = "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))"
     obj_names = main(instrument, processing_module, area_wkt, start, end, testing=True)
     for f in obj_names:
@@ -109,4 +114,37 @@ def test_global_surface_water_change(remove_objects):
     end = '2020-12-31'
     process(instrument, processing_module, start, end)
 
+def test_global_surface_water_extent(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'global_surface_water_extent'
+    start = '2019-01-01'
+    end = '2020-12-31'
+    process(instrument, processing_module, start, end)
 
+def test_global_surface_water_occurrence(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'global_surface_water_occurrence'
+    start = '2019-01-01'
+    end = '2020-12-31'
+    process(instrument, processing_module, start, end)
+
+def test_global_surface_water_recurrence(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'global_surface_water_recurrence'
+    start = '2019-01-01'
+    end = '2020-12-31'
+    process(instrument, processing_module, start, end)
+
+def test_global_surface_water_seasonality(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'global_surface_water_seasonality'
+    start = '2019-01-01'
+    end = '2020-12-31'
+    process(instrument, processing_module, start, end)
+
+def test_global_surface_water_transitions(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'global_surface_water_transitions'
+    start = '2019-01-01'
+    end = '2020-12-31'
+    process(instrument, processing_module, start, end)

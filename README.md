@@ -47,25 +47,26 @@ The command line arguments are as follows:
 
 The full list of instruments for the INSTRUMENT arguments is as follows:
 
-    SENTINEL2_L1C
-    SENTINEL2_L2A
-    SENTINEL1
-    SENTINEL1_IW
-    SENTINEL1_IW_ASC
-    SENTINEL1_IW_DES
-    SENTINEL1_EW_ASC
-    SENTINEL1_EW_DES
-    SENTINEL1_EW_SH
-    SENTINEL1_EW_SH_ASC
-    SENTINEL1_EW_SH_DES
-    MODIS
     LANDSAT45_L1
     LANDSAT45_L2
     LANDSAT8
     LANDSAT8_L1
     LANDSAT8_L2
-    SENTINEL5P
+    MODIS
+    SENTINEL1
+    SENTINEL1_EW_ASC
+    SENTINEL1_EW_DES
+    SENTINEL1_EW_SH
+    SENTINEL1_EW_SH_ASC
+    SENTINEL1_EW_SH_DES
+    SENTINEL1_IW
+    SENTINEL1_IW_ASC
+    SENTINEL1_IW_DES
+    SENTINEL2_L1C
+    SENTINEL2_L2A
     SENTINEL3_SLSTR
+    SENTINEL5P
+    COPERNICUS_SERVICES
 
 The processing modules, for the PROCESSING_MODULE argument, are given in https://github.com/sentinel-hub/custom-scripts 
 and under the "scripts" directory in the repository (but without and documentation). 
@@ -86,11 +87,36 @@ scripts in the "sentinel-1" directory can be used.
 ##### Step 2: run the container:
 
 
-Example:
+Example with docker:
 
     docker run --network host -it eom sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
 
-    COPERNICUS_SERVICES global_land_cover "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
+Example call with Python3:
+
+    copernicus_services global_surface_water_change "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
+
+Here COPERNICUS_SERVICES is the name of the data source (it is not an instrument even though it is passed to that 
+argument). For the Copernicus services a config.yaml file is required for them to work in the directory of the script.
+
+    corine_land_cover
+    corine_land_cover_accounting_layer
+    global_land_cover
+    global_surface_water_change
+    global_surface_water_extent
+    global_surface_water_occurrence
+    global_surface_water_recurrence
+    global_surface_water_seasonality
+    global_surface_water_transitions
+    vpp-amplitude-ampl
+    vpp-end-of-season-value-eosv
+    vpp-season-maximum-value-maxv
+    vpp-season-minimum-value-minv
+    vpp-seasonal-productivity-sprod
+    vpp-slope-of-greening-up-period-lslope
+    vpp-slope-of-senescent-period-rslope
+    vpp-start-of-season-value-sosv
+    vpp-total-productivity-tprod
+    water-bodies
 
 ##### Deploy
 
