@@ -6,10 +6,10 @@ DataCollection:
     catalog_id:
         67c73156-095d-4f53-8a09-9ddf3848fbb6
     service_url:
-        https://creodias.sentinel-hub.com
+        https://services.sentinel-hub.com
     is_timeless:
         False
 Output:
     mosaicking_order: null
     frequency: 'yearly'
-    resolution: 10
+    resolution: 100

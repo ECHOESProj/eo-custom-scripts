@@ -1,15 +1,15 @@
 DataCollection:
     name:
-        CORINE Land Cover
+        Water Bodies
     api_id:
-        byoc-cbdba844-f86d-41dc-95ad-b3f7f12535e9
+        byoc-62bf6f6a-c584-48a8-a739-0bc60efee54a
     catalog_id:
-        byoc-cbdba844-f86d-41dc-95ad-b3f7f12535e9
+        62bf6f6a-c584-48a8-a739-0bc60efee54a
     service_url:
         https://creodias.sentinel-hub.com
     is_timeless:
         False
 Output:
     mosaicking_order: null
-    frequency: 'yearly'
+    frequency: 'monthly'
     resolution: 100

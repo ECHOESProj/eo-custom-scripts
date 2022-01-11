@@ -1,10 +1,10 @@
 DataCollection:
     name:
-        Vegetation Phenology and Productivity Parameters Season 1 Yearly
+        Global Surface Water
     api_id:
-        byoc-67c73156-095d-4f53-8a09-9ddf3848fbb6
+        byoc-9a525f12-33b6-424e-a0f2-d567eec0f277
     catalog_id:
-        67c73156-095d-4f53-8a09-9ddf3848fbb6
+        9a525f12-33b6-424e-a0f2-d567eec0f277
     service_url:
         https://creodias.sentinel-hub.com
     is_timeless:

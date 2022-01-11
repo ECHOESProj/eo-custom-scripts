@@ -2,7 +2,6 @@ from os.path import join
 import boto3
 from botocore.exceptions import ClientError
 
-
 class ObjectStoreInterface:
     """Read and write to S3"""
 
@@ -42,7 +41,16 @@ class ReadWriteData(ObjectStoreInterface):
                 self.client_loc.upload_file(local_fname, self.bucketname, store_name)
             except TypeError:
                 self.client_loc.upload_fileobj(local_fname, self.bucketname, store_name)
-            print('s3-location: ' + self.bucketname + ' ' + store_name)
+            return self.bucketname, store_name
         except ClientError as e:
             print(e)
+
+    def check_exists(self, object_name):
+        return self.client_loc.list_objects_v2(Bucket=self.bucketname, Prefix=object_name)['Contents'][0]['Key'] == object_name
+
+    def remove_temp(self):
+        """Remove temporary object directory"""
+        bucket = self.resource_loc.Bucket(self.bucketname)
+        bucket.objects.filter(Prefix="_test").delete()
+
 

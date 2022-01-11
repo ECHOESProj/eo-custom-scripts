@@ -12,4 +12,4 @@ DataCollection:
 Output:
     mosaicking_order: null
     frequency: 'yearly'
-    resolution: 100
+    resolution: 10

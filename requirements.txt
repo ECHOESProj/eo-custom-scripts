@@ -4,4 +4,5 @@ shapely==1.7.1
 botocore==1.20.102
 boto3==1.17.102
 pyyaml==5.4.1
+pytest==6.2.5
 gdal==3.2.1

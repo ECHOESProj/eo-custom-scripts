@@ -1,3 +1,9 @@
+"""
+Generates GeoTIFFs for the specified processing script, time intervals and ROI. It uses the Sentinel-Hub API.
+
+The scripts are obtained from https://github.com/sentinel-hub/custom-scripts.
+"""
+
 import logging
 import pathlib
 from datetime import datetime, timedelta
@@ -34,7 +40,7 @@ script_dir = read_yaml(join(pathlib.Path(__file__).parent, 'data_sources.yaml'))
 
 
 def get_script_dir(instrument, directory):
-    return join(pathlib.Path(__file__).parent, 'scripts', script_dir[instrument]['directory'], directory)
+    return join(pathlib.Path(__file__).parent, 'scripts', script_dir[instrument.upper()]['directory'], directory)
 
 
 def processor_script(instrument, directory):
@@ -46,10 +52,12 @@ def processor_script(instrument, directory):
 
 def get_data_collection(instrument, config):
     try:
+        # Case for one of the default collections (e.g. Sentinel-2 data)
         return getattr(DataCollection, instrument.upper())
     except AttributeError:
+        # Case for the public data collections. The parameters for the data collection are read from the config.yaml
+        # file in the script directory. See https://collections.sentinel-hub.com/ for available data collections.
         kwargs = config['DataCollection']
-        print(kwargs)
         return DataCollection.define(**kwargs)
 
 
@@ -75,7 +83,9 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
 
 interval_names = {'yearly': 'Y', 'monthly': 'm'}
 
-def process(instrument: str, processing_module: str, area_wkt: str, config: str, start: str, end: str) -> None:
+
+def process(store: object, instrument: str, processing_module: str, area_wkt: str, config: str, start: str, end: str,
+            testing: bool = False) -> None:
     area = wkt.loads(area_wkt)
     bbox = BBox(bbox=area.bounds, crs=CRS.WGS84)
     size = bbox_to_dimensions(bbox, resolution=config['Output']['resolution'])
@@ -90,8 +100,30 @@ def process(instrument: str, processing_module: str, area_wkt: str, config: str,
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
         request_func = partial(get_request, instrument, processing_module, config, start_i, end_i, bbox, size)
-        store = ReadWriteData(config_s3, 'product_name')
-        ToS3(store, processing_module, frequency, request_func)
+        for prod_name in ToS3(store, processing_module, frequency, request_func, testing).to_store():
+            print('s3-location: ' + ' '.join(prod_name))
+            yield prod_name
+
+
+def main(instrument: str, processing_module: str, area_wkt: str, start: str, end: str, testing: bool = False):
+    t1_start = perf_counter()
+    logging.info('Starting')
+
+    try:
+        # Where config file exists in the script directory (for the public collections)
+        config = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
+    except FileNotFoundError:
+        # Otherwise use the default configuration
+        config = {'Output':
+                      {'mosaicking_order': 'leastCC',
+                       'frequency': 'monthly',
+                       'resolution': 10}}  # In metres
+
+    store = ReadWriteData(config_s3, 'product_name')
+    prod_names = list(process(store, instrument, processing_module, area_wkt, config, start, end, testing))
+    t1_stop = perf_counter()
+    logging.info(f'Finished, {t1_stop - t1_start}s')
+    return prod_names
 
 
 @click.command()
@@ -110,20 +142,7 @@ def cli(instrument: str, processing_module: str, area_wkt: str, start: str, end:
     :param end: The stop date of the search in the format YYYY-MM-DD
     :return:
     """
-    t1_start = perf_counter()
-    logging.info('Starting')
-    try:
-        # Where config file exists
-        config = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
-    except FileNotFoundError:
-        # Otherwise use the default configuration
-        config = {'Output':
-                      {'mosaicking_order': 'leastCC',
-                       'frequency': 'monthly',
-                       'resolution': 10}} # In metres
-    process(instrument, processing_module, area_wkt, config, start, end)
-    t1_stop = perf_counter()
-    logging.info(f'Finished, {t1_stop - t1_start}s')
+    main(instrument, processing_module, area_wkt, start, end)
 
 
 if __name__ == '__main__':
