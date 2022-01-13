@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from abc import abstractmethod, ABC
 import urllib
 from socket import timeout
 from botocore.client import Config

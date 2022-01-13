@@ -1,15 +1,15 @@
 DataCollection:
     name:
-        Water Bodies
+        Seasonal Trajectories, 10-daily
     api_id:
-        byoc-62bf6f6a-c584-48a8-a739-0bc60efee54a
+        byoc-90f0abac-87cf-4277-958b-d8c56d9e5371
     catalog_id:
-        62bf6f6a-c584-48a8-a739-0bc60efee54a
+        90f0abac-87cf-4277-958b-d8c56d9e5371
     service_url:
         https://creodias.sentinel-hub.com
     is_timeless:
         False
 Output:
     mosaicking_order: null
-    frequency: 'monthly'
+    frequency: 'daily'
     resolution: 10

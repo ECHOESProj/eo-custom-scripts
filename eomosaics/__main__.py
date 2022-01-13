@@ -81,10 +81,10 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
     )
 
 
-interval_names = {'yearly': 'Y', 'monthly': 'm'}
+interval_names = {'yearly': 'Y', 'monthly': 'm', 'daily': 'd'}
 
 
-def process(store: object, instrument: str, processing_module: str, area_wkt: str, config: str, start: str, end: str,
+def process(store: object, data_source: str, processing_module: str, area_wkt: str, config: str, start: str, end: str,
             testing: bool = False) -> None:
     area = wkt.loads(area_wkt)
     bbox = BBox(bbox=area.bounds, crs=CRS.WGS84)
@@ -99,13 +99,15 @@ def process(store: object, instrument: str, processing_module: str, area_wkt: st
 
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
-        request_func = partial(get_request, instrument, processing_module, config, start_i, end_i, bbox, size)
+        request_func = partial(get_request, data_source, processing_module, config, start_i, end_i, bbox, size)
         for prod_name in ToS3(store, processing_module, frequency, request_func, testing).to_store():
             print('s3-location: ' + ' '.join(prod_name))
             yield prod_name
 
 
-def main(instrument: str, processing_module: str, area_wkt: str, start: str, end: str, testing: bool = False):
+def main(instrument: str, processing_module: str, area_wkt: str, start: str, end: str,
+         mosaicking_order: str = 'leastCC', frequency: str = 'monthly', resolution: int = 10,
+         testing: bool = False):
     t1_start = perf_counter()
     logging.info('Starting')
 
@@ -114,10 +116,11 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
         config = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
     except FileNotFoundError:
         # Otherwise use the default configuration
+
         config = {'Output':
-                      {'mosaicking_order': 'leastCC',
-                       'frequency': 'monthly',
-                       'resolution': 10}}  # In metres
+                      {'mosaicking_order': mosaicking_order,
+                       'frequency': frequency,
+                       'resolution': resolution}}  # In metres
 
     store = ReadWriteData(config_s3, 'product_name')
     prod_names = list(process(store, instrument, processing_module, area_wkt, config, start, end, testing))

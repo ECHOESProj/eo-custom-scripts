@@ -38,4 +38,6 @@ SENTINEL5P:
      directory: sentinel-5p
 COPERNICUS_SERVICES:
      directory: copernicus_services
+DEM:
+     directory: dem
 

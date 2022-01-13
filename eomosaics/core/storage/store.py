@@ -71,7 +71,10 @@ class ToS3:
                     if self.testing:
                         # Check that all the values are not the same
                         r, g, b = gdal.Open(f'{local_fname}.gdal').ReadAsArray()
-                        assert not all([(r[0] == r).all(), (g[0] == g).all(), (b[0] == b).all()])
+                        try:
+                            assert not all([(r[0] == r).all(), (g[0] == g).all(), (b[0] == b).all()])
+                        except:
+                            raise AssertionError("All the bands have the same values")
 
                     os.remove(local_fname)
                     os.rename(f'{local_fname}.gdal', local_fname)
