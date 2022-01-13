@@ -115,7 +115,7 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
         # Where config file exists in the script directory (for the public collections)
         config = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
     except FileNotFoundError:
-        # Otherwise use the default configuration
+        # Otherwise, use the default configuration
 
         config = {'Output':
                       {'mosaicking_order': mosaicking_order,
