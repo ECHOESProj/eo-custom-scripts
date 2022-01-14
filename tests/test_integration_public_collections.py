@@ -5,6 +5,9 @@ An error is raised if the values in is of the RGB bands of the generated GeoTIFF
 error, but not necessarily for all products
 """
 
+#  Copyright (c) 2022.
+#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
+
 import pytest
 
 from eomosaics.__main__ import main
@@ -17,10 +20,10 @@ store = ReadWriteData(config_s3, 'product_name')
 
 @pytest.fixture
 def remove_objects():
-    # pass
-    store.remove_temp()
-    yield
-    store.remove_temp()  # To see the output, comment out this line and look in  <bucket-name>/_tests/
+    pass
+    # store.remove_temp()
+    # yield
+    # store.remove_temp()  # To see the output, comment out this line and look in  <bucket-name>/_tests/
 
 
 def process(instrument, processing_module, start, end,

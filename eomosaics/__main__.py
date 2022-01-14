@@ -4,6 +4,13 @@ Generates GeoTIFFs for the specified processing script, time intervals and ROI. 
 The scripts are obtained from https://github.com/sentinel-hub/custom-scripts.
 """
 
+#  Copyright (c) 2022.
+#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
+
+__author__ = "John Lavelle, Fergal Doyle"
+__email__ = "jlavelle@compass.ie"
+__version__ = "1.0"
+
 import logging
 import pathlib
 from datetime import datetime, timedelta
@@ -62,7 +69,7 @@ def get_data_collection(instrument, config):
 
 
 def get_request(instrument, processing_module, config, start, end, bbox, size, data_folder):
-    return SentinelHubRequest(
+    request = SentinelHubRequest(
         evalscript=processor_script(instrument, processing_module),
         input_data=[
             SentinelHubRequest.input_data(
@@ -79,6 +86,8 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
         size=size,
         config=config_sh
     )
+    request.get_data(save_data=True)
+    return request
 
 
 interval_names = {'yearly': 'Y', 'monthly': 'm', 'daily': 'd'}

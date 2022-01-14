@@ -1,3 +1,6 @@
+#  Copyright (c) 2022.
+#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
+
 import os
 import tempfile
 from datetime import datetime
@@ -22,11 +25,8 @@ class ToS3:
         product_path = '/'.join(product_identifier.split('/')[2:])
         return os.path.splitext(product_path)[0] + extension
 
-    def request(self, tempdir):
+    def get_data(self, tempdir):
         return self.request_func(tempdir)
-
-    def get_data(self, request):
-        request.get_data(save_data=True)
 
     def object_name(self, request, local_fname):
         input = request.payload['input']['data'][0]
@@ -62,6 +62,8 @@ class ToS3:
         creationOptions.append(jpeg_quality_option)
         gdal.Translate(f'{local_fname}.gdal', local_fname, format='GTiff', creationOptions=creationOptions,
                        bandList=bandList)
+        os.remove(local_fname)
+        os.rename(f'{local_fname}.gdal', local_fname)
 
     @staticmethod
     def validate_geotiff(dataset):
@@ -74,8 +76,7 @@ class ToS3:
 
     def to_store(self):
         with tempfile.TemporaryDirectory() as tempdir:
-            request = self.request(tempdir)
-            self.get_data(request)
+            request = self.get_data(tempdir)
             object_names = []
             for local_fname in glob(join(tempdir, '*', '*.*')):
                 if local_fname.endswith('.tiff'):
@@ -83,7 +84,5 @@ class ToS3:
                     if self.testing:
                         self.validate_geotiff(dataset)
                     self.compress_geotiff(dataset, local_fname)
-                    os.remove(local_fname)
-                    os.rename(f'{local_fname}.gdal', local_fname)
                 object_names.append(self.store.upload_file(local_fname, self.object_name(request, local_fname)))
             return object_names

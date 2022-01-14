@@ -30,11 +30,6 @@ config (yaml) file.
 
 ### Usage 
 
-An example usage is as follows:
-
-    python3 -m eomosaics sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
-    
-The GeoTIFFs should be in Minio after this has executed.
 
 The command line arguments are as follows: 
 
@@ -75,6 +70,12 @@ there is false_color_composite, barren_soil etc, each of which contain script.js
 
 The instrument will map to the corresponding directory in the scripts directory, so for example with "SENTINEL1" instrument any of the
 scripts in the "sentinel-1" directory can be used.   
+
+An example usage is as follows:
+
+    python3 -m eomosaics sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
+    
+The GeoTIFFs should be in object after this has executed.
 
 
 ### Alternatively, Run Using Docker

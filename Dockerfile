@@ -9,4 +9,4 @@ RUN pip3 install -r /tmp/requirements.txt
 COPY eomosaics /app/eomosaics
 WORKDIR /app/
 
-ENTRYPOINT  [ "python3", "-W", "ignore", "-m","eomosaics" ]
+ENTRYPOINT  [ "python3", "-W", "ignore", "-m", "eomosaics" ]

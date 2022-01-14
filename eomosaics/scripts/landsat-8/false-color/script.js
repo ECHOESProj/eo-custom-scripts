@@ -19,7 +19,7 @@ function setup() {
         "B03",
         "B04",
         "B05",
-        "dataMask"
+         "dataMask"
       ]
     }],
     output: {
