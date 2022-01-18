@@ -8,6 +8,7 @@ An error is raised if the values in is of the RGB bands of the generated GeoTIFF
 #  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
 
 import pytest
+import pandas as pd
 
 from eomosaics.__main__ import main
 from eomosaics.core.settings import configuration
@@ -195,9 +196,12 @@ def test_water_bodies(remove_objects):
 def test_st_ppi(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'st-ppi'
-    start = '2017-03-01'
-    end = '2017-04-30'
-    process(instrument, processing_module, start, end)
+    start = '2017-01-01'
+    end = '2017-01-30'
+    # Product is every 10 days starting 2017-01-01
+    for d in pd.date_range(start=pd.Timestamp(start), end=pd.Timestamp(end), freq='10D'):
+        d_str = d.date().strftime('%Y-%m-%d')
+        process(instrument, processing_module, d_str, d_str)
 
 
 def test_vi_fapar(remove_objects):
