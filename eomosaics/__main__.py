@@ -115,21 +115,26 @@ def process(store: object, data_source: str, processing_module: str, area_wkt: s
 
 
 def main(instrument: str, processing_module: str, area_wkt: str, start: str, end: str,
-         mosaicking_order: str = 'leastCC', frequency: str = 'monthly', resolution: int = 10,
+         mosaicking_order: str = None, frequency: str = None, resolution: int = None,
          testing: bool = False):
     t1_start = perf_counter()
     logging.info('Starting')
 
     try:
         # Where config file exists in the script directory (for the public collections)
-        config = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
+        config_yaml = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
     except FileNotFoundError:
-        # Otherwise, use the default configuration
+        # Fall back config
+        config_yaml = {'Output':
+                           {'mosaicking_order': 'leastCC',
+                            'frequency': 'monthly',
+                            'resolution': 10}}  # In metres
 
-        config = {'Output':
-                      {'mosaicking_order': mosaicking_order,
-                       'frequency': frequency,
-                       'resolution': resolution}}  # In metres
+    config = config_yaml.copy()
+    # Prioritise function kwargs first, then the config file
+    for k, v in {'mosaicking_order': mosaicking_order, 'frequency': frequency, 'resolution': resolution}.items():
+        config['Output'][k] = v or config_yaml['Output'][k]
+    print(config)
 
     store = ReadWriteData(config_s3, 'product_name')
     prod_names = list(process(store, instrument, processing_module, area_wkt, config, start, end, testing))

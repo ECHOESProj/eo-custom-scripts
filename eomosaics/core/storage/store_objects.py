@@ -55,5 +55,3 @@ class ReadWriteData(ObjectStoreInterface):
         """Remove temporary object directory"""
         bucket = self.resource_loc.Bucket(self.bucketname)
         bucket.objects.filter(Prefix="_test").delete()
-
-

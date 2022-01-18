@@ -1,8 +1,7 @@
 """
 Integration tests which check that products are generated and put in the object store.
 
-An error is raised if the values in is of the RGB bands of the generated GeoTIFFs are all the same. This is typically an
-error, but not necessarily for all products
+An error is raised if the values in is of the RGB bands of the generated GeoTIFFs are all 0 or 255.
 """
 
 #  Copyright (c) 2022.
@@ -20,14 +19,13 @@ store = ReadWriteData(config_s3, 'product_name')
 
 @pytest.fixture
 def remove_objects():
-    pass
-    # store.remove_temp()
-    # yield
-    # store.remove_temp()  # To see the output, comment out this line and look in  <bucket-name>/_tests/
+    # pass
+    store.remove_temp()
+    yield
+    store.remove_temp()  # To see the output, comment out this line and look in  <bucket-name>/_tests/
 
 
-def process(instrument, processing_module, start, end,
-            mosaicking_order: str = 'leastCC', frequency: str = 'monthly', resolution: int = 10,
+def process(instrument, processing_module, start, end, mosaicking_order=None, frequency=None, resolution=None,
             area_wkt="POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, "
                      "-6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, "
                      "-6.3777351379394 52.344188690186))"):
@@ -42,15 +40,6 @@ def test_corine_land_cover(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'corine_land_cover'
     for year in (1990, 2000, 2006, 2012, 2018):
-        start = f'{year}-01-01'
-        end = f'{year}-12-31'
-        process(instrument, processing_module, start, end)
-
-
-def test_corine_land_cover(remove_objects):
-    instrument = 'copernicus_services'
-    processing_module = 'corine_land_cover'
-    for year in (2000, 2006, 2012, 2018):
         start = f'{year}-01-01'
         end = f'{year}-12-31'
         process(instrument, processing_module, start, end)
@@ -198,19 +187,54 @@ def test_water_bodies(remove_objects):
     area_wkt = "POLYGON ((-6.28143310546875 53.0981471886932,-6.25362396240234 53.0981471886932," \
                "-6.25362396240234 53.1146357722166,-6.28143310546875 53.1146357722166," \
                "-6.28143310546875 53.0981471886932))"
-
     start = '2020-11-01'
-    end = '2021-01-01'
+    end = '2020-02-01'
     process(instrument, processing_module, start, end, area_wkt=area_wkt)
 
 
-def test_water_bodies_occurence(remove_objects):
+def test_st_ppi(remove_objects):
     instrument = 'copernicus_services'
-    processing_module = 'water-bodies-occurence'
-    area_wkt = "POLYGON ((-6.28143310546875 53.0981471886932,-6.25362396240234 53.0981471886932," \
-               "-6.25362396240234 53.1146357722166,-6.28143310546875 53.1146357722166," \
-               "-6.28143310546875 53.0981471886932))"
+    processing_module = 'st-ppi'
+    start = '2017-03-01'
+    end = '2017-04-30'
+    process(instrument, processing_module, start, end)
 
-    start = '2020-11-01'
-    end = '2021-01-01'
-    process(instrument, processing_module, start, end, area_wkt=area_wkt)
+
+def test_vi_fapar(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'vi-fapar'
+    start = '2017-03-01'
+    end = '2017-04-30'
+    process(instrument, processing_module, start, end)
+
+
+def test_vi_lai(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'vi-lai'
+    start = '2017-03-01'
+    end = '2017-04-30'
+    process(instrument, processing_module, start, end)
+
+
+def test_vi_ndvi(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'vi-ndvi'
+    start = '2017-03-01'
+    end = '2017-04-30'
+    process(instrument, processing_module, start, end)
+
+
+def test_vi_ppi(remove_objects):
+    instrument = 'copernicus_services'
+    processing_module = 'vi-ppi'
+    start = '2017-03-01'
+    end = '2017-04-30'
+    process(instrument, processing_module, start, end)
+
+
+def test_ndvi_greyscale(remove_objects):
+    instrument = 'sentinel2_l1c'
+    processing_module = 'ndvi_greyscale'
+    start = '2017-03-01'
+    end = '2017-03-30'
+    process(instrument, processing_module, start, end, frequency='monthly')

@@ -2,14 +2,14 @@ DataCollection:
     name:
         Vegetation Indices Daily
     api_id:
-        byoc-472c0398-430d-4157-a62d-603363d7a4e8
+        byoc-90f0abac-87cf-4277-958b-d8c56d9e5371
     catalog_id:
-        472c0398-430d-4157-a62d-603363d7a4e8
+        90f0abac-87cf-4277-958b-d8c56d9e5371
     service_url:
         https://creodias.sentinel-hub.com
     is_timeless:
         False
 Output:
     mosaicking_order: null
-    frequency: 'monthly'
+    frequency: 'yearly'
     resolution: 10

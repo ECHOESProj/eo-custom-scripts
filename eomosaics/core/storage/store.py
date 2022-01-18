@@ -68,9 +68,11 @@ class ToS3:
     @staticmethod
     def validate_geotiff(dataset):
         r, g, b, *_ = dataset.ReadAsArray()
+        a = _[0] if len(_) else None
         try:
-            # Check that all the values are not the same
-            assert not all([(r[0] == r).all(), (g[0] == g).all(), (b[0] == b).all()])
+            # Check that all the values are not all 0 or 255 for each band
+            for bad_val in (0, 255):
+                assert not all([(i[0] == bad_val).all() for i in (r, g, b, a) if i is not None])
         except:
             raise AssertionError("All the bands have the same values")
 
