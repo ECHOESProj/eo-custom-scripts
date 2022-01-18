@@ -197,7 +197,7 @@ def test_st_ppi(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'st-ppi'
     start = '2017-01-01'
-    end = '2017-01-30'
+    end = '2017-01-30'  # There should be products available to today
     # Product is every 10 days starting 2017-01-01
     for d in pd.date_range(start=pd.Timestamp(start), end=pd.Timestamp(end), freq='10D'):
         d_str = d.date().strftime('%Y-%m-%d')
