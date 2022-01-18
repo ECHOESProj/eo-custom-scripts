@@ -32,6 +32,8 @@ def process(instrument, processing_module, start, end, mosaicking_order=None, fr
                      "-6.3777351379394 52.344188690186))"):
     obj_names = main(instrument, processing_module, area_wkt, start, end, mosaicking_order, frequency, resolution,
                      testing=True)
+
+    assert len(obj_names)
     for f in obj_names:
         obj_name = f[1].split(': ')[-1]
         assert store.check_exists(obj_name)
@@ -170,7 +172,7 @@ def test_dem_color(remove_objects):
     instrument = 'dem'
     processing_module = 'dem-color'
     start = '2020-01-01'
-    end = '2020-12-31' # There should be products available to today
+    end = '2020-12-31' # Only use this year
     process(instrument, processing_module, start, end, frequency='yearly')
 
 
@@ -189,7 +191,7 @@ def test_water_bodies(remove_objects):
                "-6.25362396240234 53.1146357722166,-6.28143310546875 53.1146357722166," \
                "-6.28143310546875 53.0981471886932))"
     start = '2020-11-01'
-    end = '2020-02-01' # There should be products available to today
+    end = '2021-02-01' # There should be products available to today
     process(instrument, processing_module, start, end, area_wkt=area_wkt)
 
 
@@ -234,11 +236,3 @@ def test_vi_ppi(remove_objects):
     start = '2017-03-01'
     end = '2017-04-30' # There should be products available to today
     process(instrument, processing_module, start, end)
-
-
-def test_ndvi_greyscale(remove_objects):
-    instrument = 'sentinel2_l1c'
-    processing_module = 'ndvi_greyscale'
-    start = '2017-03-01'
-    end = '2017-03-30'
-    process(instrument, processing_module, start, end, frequency='monthly')

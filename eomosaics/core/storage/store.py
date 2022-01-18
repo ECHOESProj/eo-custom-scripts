@@ -6,6 +6,7 @@ import tempfile
 from datetime import datetime
 from glob import glob
 from os.path import join, basename
+import logging
 
 from osgeo import gdal
 
@@ -70,21 +71,25 @@ class ToS3:
         r, g, b, *_ = dataset.ReadAsArray()
         a = _[0] if len(_) else None
         try:
-            # Check that all the values are not all 0 or 255 for each band
+            # Check that all the values are not all the same for each band
             for bad_val in (0, 255):
-                assert not all([(i[0] == bad_val).all() for i in (r, g, b, a) if i is not None])
+                assert not all([(i[0] == i).all() for i in (r, g, b, a) if i is not None])
         except:
-            raise AssertionError("All the bands have the same values")
+            raise ValueError("All the bands 0 or 255")
 
     def to_store(self):
         with tempfile.TemporaryDirectory() as tempdir:
             request = self.get_data(tempdir)
             object_names = []
             for local_fname in glob(join(tempdir, '*', '*.*')):
-                if local_fname.endswith('.tiff'):
-                    dataset = gdal.Open(local_fname)
-                    if self.testing:
+                try:
+                    if local_fname.endswith('.tiff'):
+                        dataset = gdal.Open(local_fname)
                         self.validate_geotiff(dataset)
-                    self.compress_geotiff(dataset, local_fname)
-                object_names.append(self.store.upload_file(local_fname, self.object_name(request, local_fname)))
+                        self.compress_geotiff(dataset, local_fname)
+                    object_names.append(self.store.upload_file(local_fname, self.object_name(request, local_fname)))
+                except ValueError:
+                    logging.info(f"Skipping {local_fname} as all the bands values are the same value")
+                    if self.testing:
+                        raise
             return object_names

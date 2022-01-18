@@ -124,7 +124,7 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
         # Where config file exists in the script directory (for the public collections)
         config_yaml = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
     except FileNotFoundError:
-        # Fall back config
+        # Fallback config. Good for e.g. Sentinel-2
         config_yaml = {'Output':
                            {'mosaicking_order': 'leastCC',
                             'frequency': 'monthly',
