@@ -122,7 +122,7 @@ def test_global_surface_water_change(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'global_surface_water_change'
     start = '2019-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -130,7 +130,7 @@ def test_global_surface_water_extent(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'global_surface_water_extent'
     start = '2019-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -138,7 +138,7 @@ def test_global_surface_water_occurrence(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'global_surface_water_occurrence'
     start = '2019-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -146,7 +146,7 @@ def test_global_surface_water_recurrence(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'global_surface_water_recurrence'
     start = '2019-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -154,7 +154,7 @@ def test_global_surface_water_seasonality(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'global_surface_water_seasonality'
     start = '2019-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -162,7 +162,7 @@ def test_global_surface_water_transitions(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'global_surface_water_transitions'
     start = '2019-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -170,7 +170,7 @@ def test_dem_color(remove_objects):
     instrument = 'dem'
     processing_module = 'dem-color'
     start = '2020-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end, frequency='yearly')
 
 
@@ -178,7 +178,7 @@ def test_contour_lines(remove_objects):
     instrument = 'dem'
     processing_module = 'contour-lines'
     start = '2020-01-01'
-    end = '2020-12-31'
+    end = '2020-12-31' # There should be products available to today
     process(instrument, processing_module, start, end, frequency='yearly')
 
 
@@ -189,7 +189,7 @@ def test_water_bodies(remove_objects):
                "-6.25362396240234 53.1146357722166,-6.28143310546875 53.1146357722166," \
                "-6.28143310546875 53.0981471886932))"
     start = '2020-11-01'
-    end = '2020-02-01'
+    end = '2020-02-01' # There should be products available to today
     process(instrument, processing_module, start, end, area_wkt=area_wkt)
 
 
@@ -208,7 +208,7 @@ def test_vi_fapar(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'vi-fapar'
     start = '2017-03-01'
-    end = '2017-04-30'
+    end = '2017-04-30' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -216,7 +216,7 @@ def test_vi_lai(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'vi-lai'
     start = '2017-03-01'
-    end = '2017-04-30'
+    end = '2017-04-30' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -224,7 +224,7 @@ def test_vi_ndvi(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'vi-ndvi'
     start = '2017-03-01'
-    end = '2017-04-30'
+    end = '2017-04-30' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
@@ -232,7 +232,7 @@ def test_vi_ppi(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'vi-ppi'
     start = '2017-03-01'
-    end = '2017-04-30'
+    end = '2017-04-30' # There should be products available to today
     process(instrument, processing_module, start, end)
 
 
