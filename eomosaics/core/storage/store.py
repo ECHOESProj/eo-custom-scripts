@@ -72,8 +72,7 @@ class ToS3:
         a = _[0] if len(_) else None
         try:
             # Check that all the values are not all the same for each band
-            for bad_val in (0, 255):
-                assert not all([(i[0] == i).all() for i in (r, g, b, a) if i is not None])
+            assert not all([(i[0] == i).all() for i in (r, g, b, a) if i is not None])
         except:
             raise ValueError("All the bands 0 or 255")
 

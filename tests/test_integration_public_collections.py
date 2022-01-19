@@ -1,7 +1,7 @@
 """
 Integration tests which check that products are generated and put in the object store.
 
-An error is raised if the values in is of the RGB bands of the generated GeoTIFFs are all 0 or 255.
+An error is raised if the values in is of the RGB bands of the generated GeoTIFFs are all the same value.
 """
 
 #  Copyright (c) 2022.
