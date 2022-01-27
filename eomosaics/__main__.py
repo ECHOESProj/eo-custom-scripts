@@ -23,10 +23,7 @@ import pandas as pd
 from sentinelhub import MimeType, CRS, BBox, SentinelHubRequest, DataCollection, bbox_to_dimensions, SHConfig
 from shapely import wkt
 
-from eomosaics.core.settings import configuration
-from eomosaics.core.storage.store import ToS3
-from eomosaics.core.storage.store_objects import ReadWriteData
-from eomosaics.core.tools import read_yaml
+import eo_io
 
 logging.basicConfig(
     level=logging.INFO,
@@ -36,14 +33,14 @@ logging.basicConfig(
     ]
 )
 
-config_s3 = configuration()
+config_s3 = eo_io.configuration()
 config_sh = SHConfig()
 
 config_sh.instance_id = config_s3.sh_instance_id
 config_sh.sh_client_id = config_s3.sh_client_id
 config_sh.sh_client_secret = config_s3.sh_client_secret
 
-script_dir = read_yaml(join(pathlib.Path(__file__).parent, 'core', 'data_sources.yaml'))
+script_dir = eo_io.read_yaml(join(pathlib.Path(__file__).parent, 'core', 'data_sources.yaml'))
 
 
 def get_script_dir(instrument, directory):
@@ -109,7 +106,7 @@ def process(store: object, data_source: str, processing_module: str, area_wkt: s
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
         request_func = partial(get_request, data_source, processing_module, config, start_i, end_i, bbox, size)
-        for prod_name in ToS3(store, processing_module, frequency, request_func, testing).to_store():
+        for prod_name in eo_io.ToS3(store, processing_module, frequency, request_func, testing).to_store():
             print('s3-location: ' + ' '.join(prod_name))
             yield prod_name
 
@@ -122,7 +119,7 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
 
     try:
         # Where config file exists in the script directory (for the public collections)
-        config_yaml = read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
+        config_yaml = eo_io.read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
     except FileNotFoundError:
         # Fallback config. Good for e.g. Sentinel-2
         config_yaml = {'Output':
@@ -136,7 +133,7 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
         config['Output'][k] = v or config_yaml['Output'][k]
     print(config)
 
-    store = ReadWriteData(config_s3, 'product_name')
+    store = eo_io.ReadWriteData(config_s3, 'product_name')
     prod_names = list(process(store, instrument, processing_module, area_wkt, config, start, end, testing))
     t1_stop = perf_counter()
     logging.info(f'Finished, {t1_stop - t1_start}s')

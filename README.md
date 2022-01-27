@@ -133,7 +133,7 @@ of the script.
 * Use Pydantic (https://pydantic-docs.helpmanual.io/usage/settings/) to read config file, with the option of using
   environment variables instead those in the config file.
 
-## RSync
+## Update Custom Scripts
 
 Use rsync to update the /scripts directory with the https://github.com/sentinel-hub/custom-scripts repo.
 
