@@ -10,12 +10,11 @@ An error is raised if the values in is of the RGB bands of the generated GeoTIFF
 import pytest
 import pandas as pd
 
-from eomosaics.__main__ import main
-from eomosaics.core.settings import configuration
-from eomosaics.core.storage.store_objects import ReadWriteData
+from eo_custom_scripts import main
+from eo_io import configuration, ReadWriteData
 
 config_s3 = configuration()
-store = ReadWriteData(config_s3, 'product_name')
+store = ReadWriteData(config_s3)
 
 
 @pytest.fixture
@@ -210,7 +209,7 @@ def test_vi_fapar(remove_objects):
     instrument = 'copernicus_services'
     processing_module = 'vi-fapar'
     start = '2017-01-01'
-    end = '2017-04-30' # There should be products available until today
+    end = '2017-04-30'  # There should be products available until today
     process(instrument, processing_module, start, end)
 
 

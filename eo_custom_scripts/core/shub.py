@@ -18,12 +18,12 @@ from functools import partial
 from os.path import join
 from time import perf_counter
 
-import click
 import pandas as pd
 from sentinelhub import MimeType, CRS, BBox, SentinelHubRequest, DataCollection, bbox_to_dimensions, SHConfig
 from shapely import wkt
 
 import eo_io
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -40,11 +40,11 @@ config_sh.instance_id = config_s3.sh_instance_id
 config_sh.sh_client_id = config_s3.sh_client_id
 config_sh.sh_client_secret = config_s3.sh_client_secret
 
-script_dir = eo_io.read_yaml(join(pathlib.Path(__file__).parent, 'core', 'data_sources.yaml'))
+script_dir = eo_io.read_yaml(join(pathlib.Path(__file__).parent, 'data_sources.yaml'))
 
 
 def get_script_dir(instrument, directory):
-    return join(pathlib.Path(__file__).parent, 'scripts', script_dir[instrument.upper()]['directory'], directory)
+    return join(pathlib.Path(__file__).parent.parent, 'custom_scripts', script_dir[instrument.upper()]['directory'], directory)
 
 
 def processor_script(instrument, directory):
@@ -76,7 +76,7 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
             )
         ],
         responses=[
-            SentinelHubRequest.output_response('default', MimeType.TIFF)
+            SentinelHubRequest.output_response('default', MimeType.TIFF),
         ],
         data_folder=data_folder,
         bbox=bbox,
@@ -90,7 +90,7 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
 interval_names = {'yearly': 'Y', 'monthly': 'm', 'daily': 'd'}
 
 
-def process(store: object, data_source: str, processing_module: str, area_wkt: str, config: str, start: str, end: str,
+def process(storage: object, data_source: str, processing_module: str, area_wkt: str, config: str, start: str, end: str,
             testing: bool = False) -> None:
     area = wkt.loads(area_wkt)
     bbox = BBox(bbox=area.bounds, crs=CRS.WGS84)
@@ -106,7 +106,7 @@ def process(store: object, data_source: str, processing_module: str, area_wkt: s
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
         request_func = partial(get_request, data_source, processing_module, config, start_i, end_i, bbox, size)
-        for prod_name in eo_io.ToS3(store, processing_module, frequency, request_func, testing).to_store():
+        for prod_name in eo_io.store_geotiff.ToS3(storage, processing_module, frequency, request_func, testing).to_storage():
             print('s3-location: ' + ' '.join(prod_name))
             yield prod_name
 
@@ -133,30 +133,8 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
         config['Output'][k] = v or config_yaml['Output'][k]
     print(config)
 
-    store = eo_io.ReadWriteData(config_s3, 'product_name')
-    prod_names = list(process(store, instrument, processing_module, area_wkt, config, start, end, testing))
+    storage = eo_io.ReadWriteData(config_s3)
+    prod_names = list(process(storage, instrument, processing_module, area_wkt, config, start, end, testing))
     t1_stop = perf_counter()
     logging.info(f'Finished, {t1_stop - t1_start}s')
     return prod_names
-
-
-@click.command()
-@click.argument('instrument')
-@click.argument('processing_module')
-@click.argument('area_wkt')
-@click.argument('start')
-@click.argument('end')
-def cli(instrument: str, processing_module: str, area_wkt: str, start: str, end: str) -> None:
-    """
-    :param instrument: The name of the instrument (e.g. S1_SAR_GRD)
-    :param processing_module: The processor to use.
-    :param area_wkt: The WKT string, which is the polygon of the ROI
-    :param start: The start date of the search in the format YYYY-MM-DD
-    :param end: The stop date of the search in the format YYYY-MM-DD
-    :return:
-    """
-    main(instrument, processing_module, area_wkt, start, end)
-
-
-if __name__ == '__main__':
-    cli()

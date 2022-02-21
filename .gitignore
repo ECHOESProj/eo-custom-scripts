@@ -4,8 +4,8 @@ __pycache__/
 .idea
 .venv
 notebooks/
-eo_sentinelhub/config/*
-!eo_sentinelhub/config/
-!eo_sentinelhub/config/example.yaml
+eo_custom_scripts/config/*
+!eo_custom_scripts/config/
+!eo_custom_scripts/config/example.yaml
 !.gitignore
 deploy.zip
