@@ -108,10 +108,8 @@ def process(data_source: str, processing_module: str, area_wkt: str, config_outp
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
         request_func = partial(get_request, data_source, processing_module, config_output, start_i, end_i, bbox, size)
-        store = eo_io.store_geotiff.ToS3(processing_module, frequency, request_func, testing)
-        for prod_name in store.to_storage():
-            print('s3-location: ' + ' '.join(prod_name))
-            yield prod_name
+        s3 = eo_io.store_geotiff.ToS3(processing_module, frequency, request_func, testing)
+        yield from s3.object_names
 
 
 def main(instrument: str, processing_module: str, area_wkt: str, start: str, end: str,
