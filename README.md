@@ -140,4 +140,4 @@ of the script.
 Use rsync to update the /scripts directory with the https://github.com/sentinel-hub/custom-scripts repo.
 
 rsync -a --include='*/' --include="*.html" --include="*.js" --include="*.json" --include="*.lnk" --include="*.md"
---include="*.txt" --include="*.yml" --include="*.idx" --exclude="*" custom-scripts/ eo-mosaics/eo-mosaics/scripts/
+--include="*.txt" --include="*.yml" --include="*.idx" --exclude="*" custom-scripts/ eo-custom-scripts/eo-custom-scripts/scripts/
