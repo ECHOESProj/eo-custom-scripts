@@ -27,7 +27,7 @@ Alternatively, run using Docker (see below).
 ### Credentials
 
 The credential can be obtained from the Compass Informatics password manager, under "eo-custom-scripts configuration files".
-Unzip the config files in there and put the yaml files in the config directory in this repository.
+Unzip the config files in there and put the yaml files in the home directory in a directory called eoconfig.
 
 When Minio is started, it displays and endpoint. Copy this URL into both the endpoint_url_local and endpoint_url_ext
 entries of the config (yaml) file.
