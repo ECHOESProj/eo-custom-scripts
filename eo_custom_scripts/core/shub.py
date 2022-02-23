@@ -32,8 +32,9 @@ logging.basicConfig(
     ]
 )
 
-config_s3 = eo_io.configuration()
+
 config_sh = SHConfig()
+config_s3 = eo_io.configuration()
 
 config_sh.instance_id = config_s3.sh_instance_id
 config_sh.sh_client_id = config_s3.sh_client_id
@@ -90,12 +91,12 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
 interval_names = {'yearly': 'Y', 'monthly': 'm', 'daily': 'd'}
 
 
-def process(storage: object, data_source: str, processing_module: str, area_wkt: str, config: str, start: str, end: str,
+def process(data_source: str, processing_module: str, area_wkt: str, config_output: str, start: str, end: str,
             testing: bool = False) -> None:
     area = wkt.loads(area_wkt)
     bbox = BBox(bbox=area.bounds, crs=CRS.WGS84)
-    size = bbox_to_dimensions(bbox, resolution=config['Output']['resolution'])
-    frequency = config['Output']['frequency']
+    size = bbox_to_dimensions(bbox, resolution=config_output['Output']['resolution'])
+    frequency = config_output['Output']['frequency']
 
     # interval_range was excluding the first month if it was 01-01.
     # Minus 1 day from the start date to include first month
@@ -106,8 +107,8 @@ def process(storage: object, data_source: str, processing_module: str, area_wkt:
 
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
-        request_func = partial(get_request, data_source, processing_module, config, start_i, end_i, bbox, size)
-        store = eo_io.store_geotiff.ToS3(storage, processing_module, frequency, request_func, testing)
+        request_func = partial(get_request, data_source, processing_module, config_output, start_i, end_i, bbox, size)
+        store = eo_io.store_geotiff.ToS3(processing_module, frequency, request_func, testing)
         for prod_name in store.to_storage():
             print('s3-location: ' + ' '.join(prod_name))
             yield prod_name
@@ -135,8 +136,7 @@ def main(instrument: str, processing_module: str, area_wkt: str, start: str, end
         config['Output'][k] = v or config_yaml['Output'][k]
     print(config)
 
-    storage = eo_io.ReadWriteData(config_s3)
-    prod_names = list(process(storage, instrument, processing_module, area_wkt, config, start, end, testing))
+    prod_names = list(process(instrument, processing_module, area_wkt, config, start, end, testing))
     t1_stop = perf_counter()
     logging.info(f'Finished, {t1_stop - t1_start}s')
     return prod_names
