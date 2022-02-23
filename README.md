@@ -1,6 +1,6 @@
-# eo-mosaics
+# eo-custom-scripts
 
-eo-mosaics generates GeoTIFFs for the specified processing module.
+eo-custom-scripts generates GeoTIFFs for the specified processing module.
 
 The code uses [Sentinel-Hub Python API](https://sentinelhub-py.readthedocs.io/en/latest/).
 The [Sentinel Custom-Script repository](https://custom-scripts.sentinel-hub.com/) is a collection of scripts for
@@ -26,7 +26,7 @@ Alternatively, run using Docker (see below).
 
 ### Credentials
 
-The credential can be obtained from the Compass Informatics password manager, under "eo-mosaics configuration files".
+The credential can be obtained from the Compass Informatics password manager, under "eo-custom-scripts configuration files".
 Unzip the config files in there and put the yaml files in the config directory in this repository.
 
 When Minio is started, it displays and endpoint. Copy this URL into both the endpoint_url_local and endpoint_url_ext
@@ -75,7 +75,7 @@ instrument any of the scripts in the "sentinel-1" directory can be used.
 
 An example usage is as follows:
 
-    python3 -m eomosaics sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
+    python3 -m eo-custom-scripts sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
 
 The GeoTIFFs should be in object store after this has executed. The location where the data is store is printed to the
 terminal.
@@ -84,14 +84,14 @@ terminal.
 
 ##### Step 1: build the container:
 
-    docker build . -t eom --network host
+    docker build . -t eocs --network host
 
 ##### Step 2: run the container:
 
 Examples with docker:
 
-    docker run --network host -it eom sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
-    docker run --network host -it eom copernicus_services global_surface_water_change "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
+    docker run --network host -it eocs sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
+    docker run --network host -it eocs copernicus_services global_surface_water_change "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
 
 In the second example, copernicus_services is the name of the data source (it is not an instrument even though it is
 passed to that argument). For the Copernicus services a config.yaml file is required for them to work in the directory
@@ -125,13 +125,15 @@ of the script.
     pscp deploy.zip eouser@eo-stack:/home/eouser/
 
     #remote:
-    unzip deploy.zip -d eo-mosaics
-    docker build eo-mosaics -t eom --network host
+    unzip deploy.zip -d eo-custom-scripts
+    docker build eo-custom-scripts -t eom --network host
 
 ## TODO
 
 * Use Pydantic (https://pydantic-docs.helpmanual.io/usage/settings/) to read config file, with the option of using
   environment variables instead those in the config file.
+
+* Map config files for local to docker. See https://dantehranian.wordpress.com/2015/03/25/how-should-i-get-application-configuration-into-my-docker-containers/
 
 ## Update Custom Scripts
 

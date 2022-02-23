@@ -24,7 +24,6 @@ from shapely import wkt
 
 import eo_io
 
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -44,7 +43,8 @@ script_dir = eo_io.read_yaml(join(pathlib.Path(__file__).parent, 'data_sources.y
 
 
 def get_script_dir(instrument, directory):
-    return join(pathlib.Path(__file__).parent.parent, 'custom_scripts', script_dir[instrument.upper()]['directory'], directory)
+    return join(pathlib.Path(__file__).parent.parent, 'custom_scripts', script_dir[instrument.upper()]['directory'],
+                directory)
 
 
 def processor_script(instrument, directory):
@@ -97,7 +97,8 @@ def process(storage: object, data_source: str, processing_module: str, area_wkt:
     size = bbox_to_dimensions(bbox, resolution=config['Output']['resolution'])
     frequency = config['Output']['frequency']
 
-    # interval_range was excluding the first month if it was 01-01. Minus 1 day from the start date to include first month
+    # interval_range was excluding the first month if it was 01-01.
+    # Minus 1 day from the start date to include first month
     start_dt = datetime.strptime(start, '%Y-%m-%d').date() - timedelta(days=1)
     intervals = pd.interval_range(start=pd.Timestamp(start_dt), end=pd.Timestamp(end), freq=interval_names[frequency])
     intervals = [(pd.to_datetime(i.left).date() + timedelta(days=1), pd.to_datetime(i.right).date())
@@ -106,7 +107,8 @@ def process(storage: object, data_source: str, processing_module: str, area_wkt:
     for start_i, end_i in intervals:
         # request_func has one argument: data_folder
         request_func = partial(get_request, data_source, processing_module, config, start_i, end_i, bbox, size)
-        for prod_name in eo_io.store_geotiff.ToS3(storage, processing_module, frequency, request_func, testing).to_storage():
+        store = eo_io.store_geotiff.ToS3(storage, processing_module, frequency, request_func, testing)
+        for prod_name in store.to_storage():
             print('s3-location: ' + ' '.join(prod_name))
             yield prod_name
 
