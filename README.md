@@ -133,7 +133,7 @@ of the script.
 * Use Pydantic (https://pydantic-docs.helpmanual.io/usage/settings/) to read config file, with the option of using
   environment variables instead those in the config file.
 
-* Map config files for local to docker. See https://dantehranian.wordpress.com/2015/03/25/how-should-i-get-application-configuration-into-my-docker-containers/
+* Map config files from local to docker container. See https://dantehranian.wordpress.com/2015/03/25/how-should-i-get-application-configuration-into-my-docker-containers/
 
 ## Update Custom Scripts
 
