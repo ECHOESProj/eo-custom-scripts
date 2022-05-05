@@ -11,5 +11,5 @@ DataCollection:
         False
 Output:
     mosaicking_order: null
-    frequency: 'monthly'
+    frequency: 'daily'
     resolution: 10
