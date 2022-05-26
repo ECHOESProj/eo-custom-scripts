@@ -1,3 +1,4 @@
+# Ignore
 __pycache__/
 *.py[cod]
 *$py.class
@@ -9,4 +10,7 @@ eo_custom_scripts/config/*
 !eo_custom_scripts/config/example.yaml
 !.gitignore
 deploy.zip
-resources/keys/id_rsa
+resources/*
+
+# Allow
+!resources/*/place_*
