@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .idea
 .venv
+venv
 notebooks/
 eo_custom_scripts/config/*
 !eo_custom_scripts/config/
