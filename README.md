@@ -75,7 +75,7 @@ instrument any of the scripts in the "sentinel-1" directory can be used.
 
 An example usage is as follows:
 
-python3 -m eo-custom-scripts sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
+python3 -m eo_custom_scripts sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
 
 The GeoTIFFs should be in object store after this has executed. The location where the data is store is printed to the
 terminal.

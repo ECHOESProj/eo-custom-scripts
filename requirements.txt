@@ -7,3 +7,4 @@ pytest
 click
 xarray
 zarr
+python-dotenv

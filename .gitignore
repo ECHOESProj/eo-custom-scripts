@@ -12,6 +12,3 @@ eo_custom_scripts/config/*
 !.gitignore
 deploy.zip
 resources/*
-
-# Allow
-!resources/*/place_*

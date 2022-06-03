@@ -9,12 +9,12 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 
 # Authorize SSH Host
 RUN mkdir -p /root/.ssh
-COPY ./resources/keys/id_rsa /root/.ssh
+COPY ./resources/id_rsa /root/.ssh
 RUN chmod 0700 /root/.ssh && \
     ssh-keyscan github.com > /root/.ssh/known_hosts && \
     chmod 600 /root/.ssh/id_rsa
 
-COPY ./resources/eoconfig/creodias.yaml /root/eoconfig/creodias.yaml
+COPY ./resources/config_eo_service.yml /root/config_eo_service.yml
 
 RUN pip3 install git+ssh://git@github.com/ECHOESProj/eo-io.git
 
