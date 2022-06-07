@@ -11,4 +11,6 @@ eo_custom_scripts/config/*
 !eo_custom_scripts/config/example.yaml
 !.gitignore
 deploy.zip
-resources/*
+credentials/*
+
+!credentials/place_credentials_here
