@@ -9,7 +9,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 
 # Authorize SSH Host
 RUN mkdir -p /root/.ssh
-COPY ./resources/id_rsa /root/.ssh
+COPY ./credentials/id_rsa /root/.ssh
 RUN chmod 0700 /root/.ssh && \
     ssh-keyscan github.com > /root/.ssh/known_hosts && \
     chmod 600 /root/.ssh/id_rsa
