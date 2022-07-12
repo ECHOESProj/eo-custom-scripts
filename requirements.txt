@@ -8,3 +8,11 @@ click
 xarray
 zarr
 python-dotenv
+botocore
+PyYAML
+numpy==1.22.4
+s3fs
+rioxarray
+satpy
+python-geotiepoints
+defusedxml
