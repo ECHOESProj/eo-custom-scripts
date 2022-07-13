@@ -12,5 +12,6 @@ eo_custom_scripts/config/*
 !.gitignore
 deploy.zip
 credentials/*
+!credentials/config
 
 !credentials/place_credentials_here
