@@ -7,11 +7,9 @@ __pycache__/
 venv
 notebooks/
 eo_custom_scripts/config/*
-!eo_custom_scripts/config/
-!eo_custom_scripts/config/example.yaml
+!eo_custom_scripts/config
 !.gitignore
 deploy.zip
 credentials/*
 !credentials/config
-
 !credentials/place_credentials_here
