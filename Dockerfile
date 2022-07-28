@@ -1,5 +1,5 @@
 #FROM osgeo/gdal:ubuntu-small-latest
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ENV TZ=Europe/Dublin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \

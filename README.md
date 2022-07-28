@@ -36,11 +36,16 @@ entries of the config (yaml) file.
 
 The command line arguments are as follows:
 
-    INSTRUMENT         The instrument name 
-    PROCESSING_MODULE  The processing module from the scripts
-    AREA_WKT           The polygon WKT with the bounding box
-    START              The start of the date interval   
-    END                The end of the date interval   
+    INSTRUMENT               The instrument name 
+    PROCESSING_MODULE        The processing module from the scripts
+    AREA_WKT                 The polygon WKT with the bounding box
+    START                    The start of the date interval   
+    END                      The end of the date interval
+    --frequency TEXT         The aggregation frequency: daily, weekly or monthly
+    --resolution INTEGER     The resolution of the output image in metres
+    --mosaicking_order TEXT  Mosaicking method: leasCC
+    --help                   Show this message and exit.
+
 
 The full list of instruments for the INSTRUMENT arguments is as follows:
 
@@ -90,8 +95,8 @@ terminal.
 
 Examples with docker:
 
-    docker run --network host -it eocs sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
-    docker run --network host -it eocs copernicus_services global_surface_water_change "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
+    docker run --network host -it eo-custom-scripts sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
+    docker run --network host -it eo-custom-scripts copernicus_services global_surface_water_change "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
 
 In the second example, copernicus_services is the name of the data source (it is not an instrument even though it is
 passed to that argument). For the Copernicus services a config.yaml file is required for them to work in the directory
