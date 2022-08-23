@@ -18,8 +18,10 @@ from functools import partial
 from os.path import join
 
 import pandas as pd
-from sentinelhub import MimeType, CRS, BBox, SentinelHubRequest, DataCollection, bbox_to_dimensions, SHConfig
+from sentinelhub import MimeType, CRS, BBox, SentinelHubRequest, DataCollection, \
+    bbox_to_dimensions, SHConfig, SentinelHubCatalog
 from shapely import wkt
+
 
 import eo_io
 
@@ -65,11 +67,24 @@ def get_data_collection(instrument, config):
 
 
 def get_request(instrument, processing_module, config, start, end, bbox, size, data_folder):
+    data_collection = get_data_collection(instrument, config)
+
+    catalog = SentinelHubCatalog(config=config_sh)
+    search_iterator = catalog.search(
+        data_collection,
+        bbox=bbox,
+        time=(start, end),
+        query={"eo:cloud_cover": {"lt": 98}},
+        fields={"include": ["id", "properties.datetime", "properties.eo:cloud_cover"], "exclude": []})
+
+    if not list(search_iterator):
+        return None
+
     request = SentinelHubRequest(
         evalscript=processor_script(instrument, processing_module),
         input_data=[
             SentinelHubRequest.input_data(
-                data_collection=get_data_collection(instrument, config),
+                data_collection,
                 time_interval=(start, end),
                 mosaicking_order=config['Output']['mosaicking_order']
             )
