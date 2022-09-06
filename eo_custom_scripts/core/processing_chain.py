@@ -69,16 +69,26 @@ def get_data_collection(instrument, config):
 def get_request(instrument, processing_module, config, start, end, bbox, size, data_folder):
     data_collection = get_data_collection(instrument, config)
 
+    if "SENTINEL2" in instrument.upper():
+        query = {"eo:cloud_cover": {"lt": 98}}
+    else:
+        query = None
+
     catalog = SentinelHubCatalog(config=config_sh)
     search_iterator = catalog.search(
         data_collection,
         bbox=bbox,
         time=(start, end),
-        query={"eo:cloud_cover": {"lt": 98}},
+        query=query,
         fields={"include": ["id", "properties.datetime", "properties.eo:cloud_cover"], "exclude": []})
 
     if not list(search_iterator):
         return None
+
+    try:
+        mosaicking_order = config['Output']['mosaicking_order']
+    except KeyError:
+        mosaicking_order = None
 
     request = SentinelHubRequest(
         evalscript=processor_script(instrument, processing_module),
@@ -86,7 +96,7 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
             SentinelHubRequest.input_data(
                 data_collection,
                 time_interval=(start, end),
-                mosaicking_order=config['Output']['mosaicking_order']
+                mosaicking_order=mosaicking_order,
             )
         ],
         responses=[
@@ -148,15 +158,20 @@ class ProcessingChain:
             # Where config file exists in the script directory (for the public collections)
             config_yaml = eo_io.read_yaml(join(get_script_dir(instrument, processing_module), 'config.yaml'))
         except FileNotFoundError:
-            # Fallback config. Good for e.g. Sentinel-2
-            config_yaml = {'Output':
-                               {'mosaicking_order': 'leastCC',
-                                'frequency': 'monthly',
-                                'resolution': 10}}  # In metres
+            if "SENTINEL1" in instrument.upper():
+                config_yaml = {'Output':
+                                   {'frequency': 'daily',
+                                    'resolution': 20}}  # In metres
+            else:
+                # Fallback config. Good for e.g. Sentinel-2
+                config_yaml = {'Output':
+                                   {'mosaicking_order': 'leastCC',
+                                    'frequency': 'monthly',
+                                    'resolution': 10}}  # In metres
 
         config = config_yaml.copy()
         # Prioritise function kwargs first, then the config file
-        for k, v in {'mosaicking_order': mosaicking_order, 'frequency': frequency, 'resolution': resolution}.items():
+        for k, v in config['Output'].items():
             config['Output'][k] = v or config_yaml['Output'][k]
         return config
 
