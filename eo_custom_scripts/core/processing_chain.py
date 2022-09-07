@@ -85,10 +85,7 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
     if not list(search_iterator):
         return None
 
-    try:
-        mosaicking_order = config['Output']['mosaicking_order']
-    except KeyError:
-        mosaicking_order = None
+    mosaicking_order = config['Output']['mosaicking_order']
 
     request = SentinelHubRequest(
         evalscript=processor_script(instrument, processing_module),
@@ -160,7 +157,8 @@ class ProcessingChain:
         except FileNotFoundError:
             if "SENTINEL1" in instrument.upper():
                 config_yaml = {'Output':
-                                   {'frequency': 'daily',
+                                   {'mosaicking_order':  None,
+                                    'frequency': 'daily',
                                     'resolution': 20}}  # In metres
             else:
                 # Fallback config. Good for e.g. Sentinel-2
@@ -168,11 +166,10 @@ class ProcessingChain:
                                    {'mosaicking_order': 'leastCC',
                                     'frequency': 'monthly',
                                     'resolution': 10}}  # In metres
-
         config = config_yaml.copy()
         # Prioritise function kwargs first, then the config file
-        for k, v in config['Output'].items():
-            config['Output'][k] = v or config_yaml['Output'][k]
+        for k, v in {'mosaicking_order': mosaicking_order, 'frequency': frequency, 'resolution': resolution}.items():
+                config['Output'][k] = v or config_yaml['Output'][k]
         return config
 
     @staticmethod

@@ -98,6 +98,11 @@ Examples with docker:
     docker run --network host -it eo-custom-scripts sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2019-01-01 2019-12-31
     docker run --network host -it eo-custom-scripts copernicus_services global_surface_water_change "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2015-01-01 2020-12-31
 
+Test with the following arguments:
+  
+    sentinel2_l1c ndvi_greyscale "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2022-08-08 2022-08-08 --frequency daily
+    SENTINEL1_IW sar_false_color_visualization "POLYGON((-6.3777351379394 52.344188690186, -6.3780784606933 52.357234954835, -6.3552474975585 52.357749938966, -6.3561058044433 52.345218658448, -6.3777351379394 52.344188690186))" 2022-08-24 2022-08-24 --frequency daily
+
 In the second example, copernicus_services is the name of the data source (it is not an instrument even though it is
 passed to that argument). For the Copernicus services a config.yaml file is required for them to work in the directory
 of the script.
