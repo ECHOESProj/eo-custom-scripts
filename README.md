@@ -26,10 +26,15 @@ Alternatively, run using Docker (see below).
 
 ### Credentials
 
-The credential can be obtained from the Compass Informatics password manager, under "eo-custom-scripts configuration files".
-Unzip the config files in there and put the yaml files in the home directory in a directory called eoconfig.
+Rename the file
+credentials/config_eo_service_.yml to
+credentials/config_eo_service.yml
+and add the credentials.
+Alternatively, install the EO service using the [Ansible Playbok](https://github.com/ECHOESProj/eo-playbooks),
+which will copy create the config_eo_service.yml file automatically. 
 
-When Minio is started, it displays and endpoint. Copy this URL into both the endpoint_url_local and endpoint_url_ext
+When Minio is started, it displays and endpoint.
+Copy this URL into both the endpoint_url_local and endpoint_url_ext
 entries of the config (yaml) file.
 
 ### Usage
@@ -70,7 +75,7 @@ The full list of instruments for the INSTRUMENT arguments is as follows:
     SENTINEL5P
     COPERNICUS_SERVICES
 
-The processing modules, for the PROCESSING_MODULE argument, are given in https://github.com/sentinel-hub/custom-scripts
+The processing modules, for the PROCESSING_MODULE argument, are in https://github.com/sentinel-hub/custom-scripts
 and under the "scripts" directory in the repository (but without and documentation). The processing module is the name
 of the directory that contains script.js. For example, under sentinel-2 there is false_color_composite, barren_soil etc,
 each of which contain script.js.
@@ -128,22 +133,8 @@ of the script.
     water-bodies
     water-bodies-occurence
 
-##### Deploy
 
-    #local:
-    git archive main --output deploy.zip 
-    pscp deploy.zip eouser@eo-stack:/home/eouser/
 
-    #remote:
-    unzip deploy.zip -d eo-custom-scripts
-    docker build eo-custom-scripts -t eom --network host
-
-## TODO
-
-* Use Pydantic (https://pydantic-docs.helpmanual.io/usage/settings/) to read config file, with the option of using
-  environment variables instead those in the config file.
-
-* Map config files from local to docker container. See https://dantehranian.wordpress.com/2015/03/25/how-should-i-get-application-configuration-into-my-docker-containers/
 
 ## Update Custom Scripts
 
