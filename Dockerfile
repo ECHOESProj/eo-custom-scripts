@@ -21,10 +21,9 @@ COPY ./requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
 
 COPY eo_custom_scripts /app/eo_custom_scripts
+COPY credentials/config_eo_service.yml /root/config_eo_service.yml
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 WORKDIR /app/
 
-COPY credentials/config_eo_service.yml /root/config_eo_service.yml
-
-CMD envsubst < /root/config_eo_service.yml > /root/config_eo_service_tmp.yml && \
-    mv /root/config_eo_service_tmp.yml /root/config_eo_service.yml
-ENTRYPOINT  [ "python3", "-W", "ignore", "-m", "eo_custom_scripts" ]
+ENTRYPOINT ["/app/entrypoint.sh"]
