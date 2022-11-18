@@ -4,8 +4,7 @@ Integration tests which check that products are generated and put in the object 
 An error is raised if the values in is of the RGB bands of the generated GeoTIFFs are all the same value.
 """
 
-#  Copyright (c) 2022.
-#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
+
 
 import pytest
 import pandas as pd

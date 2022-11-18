@@ -4,13 +4,6 @@ Generates GeoTIFFs for the specified processing script, time intervals and ROI. 
 The scripts are obtained from https://github.com/sentinel-hub/custom-scripts.
 """
 
-#  Copyright (c) 2022.
-#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
-
-__author__ = "John Lavelle, Fergal Doyle"
-__email__ = "jlavelle@compass.ie"
-__version__ = "1.0"
-
 import logging
 import pathlib
 from datetime import datetime, timedelta

@@ -1,10 +1,3 @@
-#  Copyright (c) 2022.
-#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
-
-__author__ = "John Lavelle, Fergal Doyle"
-__email__ = "jlavelle@compass.ie"
-__version__ = "1.0"
-
 from eo_custom_scripts.core.processing_chain import ProcessingChain
 import click
 
