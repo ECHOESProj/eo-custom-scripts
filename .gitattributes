@@ -1,1 +1,2 @@
-* text
+[core]
+	autocrlf = false
