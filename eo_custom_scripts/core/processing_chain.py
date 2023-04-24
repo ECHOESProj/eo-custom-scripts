@@ -55,7 +55,15 @@ def get_data_collection(instrument, config):
     except AttributeError:
         # Case for the public data collections. The parameters for the data collection are read from the config.yaml
         # file in the script directory. See https://collections.sentinel-hub.com/ for available data collections.
-        kwargs = config['DataCollection']
+        kwargs = config['DataCollection'].copy()
+        if 'byoc' in kwargs['api_id']:
+            # if this is a byoc type of collection, use define_byoc
+            # and delete catalog_id from kwargs to prevent it overwriting
+            # the generated catalog_id
+            catalog_id = kwargs['catalog_id']
+            del kwargs['catalog_id']
+            return DataCollection.define_byoc(catalog_id, **kwargs)
+
         return DataCollection.define(**kwargs)
 
 
@@ -67,10 +75,7 @@ def get_request(instrument, processing_module, config, start, end, bbox, size, d
     else:
         filter=None
 
-    # All landsats sit on https://services-uswest2.sentinel-hub.com
-    if hasattr(data_collection, 'name') and 'LANDSAT' in data_collection.name.upper():
-        config_sh.sh_base_url = data_collection.service_url
-
+    config_sh.sh_base_url = data_collection.service_url
     catalog = SentinelHubCatalog(config=config_sh)
     search_iterator = catalog.search(
         data_collection,
