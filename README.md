@@ -94,7 +94,7 @@ terminal.
 
 ##### Step 1: build the container:
 
-    docker build . -t eocs --network host
+    docker build . -t eo-custom-scripts --network host
 
 ##### Step 2: run the container:
 

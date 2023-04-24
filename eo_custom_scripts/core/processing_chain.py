@@ -62,17 +62,21 @@ def get_data_collection(instrument, config):
 def get_request(instrument, processing_module, config, start, end, bbox, size, data_folder):
     data_collection = get_data_collection(instrument, config)
 
-    if "SENTINEL2" in instrument.upper():
-        query = {"eo:cloud_cover": {"lt": 98}}
+    if 'SENTINEL2' in instrument.upper():
+        filter = 'eo:cloud_cover < 98'
     else:
-        query = None
+        filter=None
+
+    # All landsats sit on https://services-uswest2.sentinel-hub.com
+    if hasattr(data_collection, 'name') and 'LANDSAT' in data_collection.name.upper():
+        config_sh.sh_base_url = data_collection.service_url
 
     catalog = SentinelHubCatalog(config=config_sh)
     search_iterator = catalog.search(
         data_collection,
         bbox=bbox,
         time=(start, end),
-        query=query,
+        filter=filter,
         fields={"include": ["id", "properties.datetime", "properties.eo:cloud_cover"], "exclude": []})
 
     if not list(search_iterator):

@@ -1,12 +1,10 @@
-LANDSAT45_L1:
+LANDSAT_TM_L1:
      directory: landsat-4-5-tm
-LANDSAT45_L2:
+LANDSAT_TM_L2:
      directory: landsat-4-5-tm
-LANDSAT8:
+LANDSAT_OT_L1:
      directory: landsat-8
-LANDSAT8_L1:
-     directory: landsat-8
-LANDSAT8_L2:
+LANDSAT_OT_L2:
      directory: landsat-8
 MODIS:
      directory: modis
