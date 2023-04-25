@@ -70,8 +70,8 @@ def get_data_collection(instrument, config):
 def get_request(instrument, processing_module, config, start, end, bbox, size, data_folder):
     data_collection = get_data_collection(instrument, config)
 
-    if 'SENTINEL2' in instrument.upper():
-        filter = 'eo:cloud_cover < 98'
+    if data_collection.has_cloud_coverage:
+        filter = 'eo:cloud_cover < 35'
     else:
         filter=None
 
