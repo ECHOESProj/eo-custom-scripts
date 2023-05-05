@@ -4,7 +4,7 @@ DataCollection:
     api_id:
         byoc-cbdba844-f86d-41dc-95ad-b3f7f12535e9
     catalog_id:
-        byoc-cbdba844-f86d-41dc-95ad-b3f7f12535e9
+        cbdba844-f86d-41dc-95ad-b3f7f12535e9
     service_url:
         https://creodias.sentinel-hub.com
     is_timeless:
