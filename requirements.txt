@@ -14,4 +14,4 @@ s3fs==2022.7.1
 satpy==0.38.0
 sentinelhub==3.9.0
 xarray==2022.11.0
-zipp==3.10.0
+zipp==3.19.1
